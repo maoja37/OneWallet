@@ -20,12 +20,8 @@ class _SplashScreenState extends State<SplashScreen> {
   _navigateToHome() async {
     await Future.delayed(Duration(milliseconds: 7000), () {});
 
-    Navigator.of(context).pushReplacement(PageTransition(
-      child: OnboardingScreen(),
-      type: PageTransitionType.fade,
-      duration: Duration(milliseconds: 1500),
-      curve: Curves.fastLinearToSlowEaseIn,
-    ));
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => OnboardingScreen()));
   }
 
   @override
@@ -33,7 +29,11 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Align(alignment: Alignment.centerRight, child: Image.asset('assets/Group5875.png'))
+        child: SvgPicture.asset(
+          'assets/onboarding_screen_svg_black.svg',
+          width: 223,
+          height: 48,
+        ),
       ),
     );
   }
