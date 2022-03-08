@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:one_wallet/OnboardingProcess/sign_up_screen.dart';
 
+import 'log_in_screen.dart';
+
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
 
@@ -88,7 +90,12 @@ class OnboardingScreen extends StatelessWidget {
                     ),
                   ),
                   MaterialButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (builder) => LoginScreen()),
+                            );
+                    },
                     color: Color(0xff32363C),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
