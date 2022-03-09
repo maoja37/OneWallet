@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:one_wallet/OnboardingProcess/splash_screen.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,27 +15,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-     precacheImage(AssetImage('assets/onboarding_card.png'), context);
+    precacheImage(AssetImage('assets/onboarding_card.png'), context);
     return DismissKeyboard(
       child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            fontFamily: 'Gotham',
-          ),
-          home: MyHomePage(title: 'Flutter Demo Home Page'),
-          //SplashScreen()
-          ),
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          fontFamily: 'Gotham',
+        ),
+        home: MyHomePage(title: 'Flutter Demo Home Page'),
+        //SplashScreen()
+      ),
     );
   }
 }
-
-
-
-
-
-
-
 
 class MyHomePage extends StatefulWidget {
   final String title;
@@ -74,15 +70,55 @@ class _MyHomePageState extends State<MyHomePage> {
     showFlexibleBottomSheet<void>(
       minHeight: 0,
       initHeight: 0.5,
-      maxHeight: 0.7,
+      maxHeight: 0.5,
       context: context,
       builder: (context, controller, offset) {
-        return _BottomSheet(
-          scrollController: controller,
-          bottomSheetOffset: offset,
+        return Container(
+          decoration: const BoxDecoration(
+            color: Color(0xFFFFFFFF),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(32),
+              topRight: Radius.circular(32),
+            ),
+          ),
+          child: ListView(controller: controller, children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 32,
+                  ),
+                  SvgPicture.asset('assets/Rectangle.svg'),
+                  SizedBox(
+                    height: 32,
+                  ),
+                  Text(
+                    'Forgot password',
+                    style: TextStyle(
+                      fontFamily: 'Gotham',
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xff0B0B0B),
+                      fontSize: 24,
+                    ),
+                  ),
+                  SizedBox(height: 6),
+                  Text(
+                    'Enter email attached to your account',
+                    style: TextStyle(
+                      color: Color(0xff505780),
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Gotham',
+                      fontSize: 14
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ]),
         );
       },
-      anchors: [0, 0.1, 0.4],
     );
   }
 
@@ -236,11 +272,7 @@ class _TestContainer extends StatelessWidget {
   }
 }
 
-
-
- 
-
- class DismissKeyboard extends StatelessWidget {
+class DismissKeyboard extends StatelessWidget {
   final Widget child;
   const DismissKeyboard({Key? key, required this.child}) : super(key: key);
 
