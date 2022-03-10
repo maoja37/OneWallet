@@ -23,8 +23,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'Gotham',
         ),
-        home: MyHomePage(title: 'Flutter Demo Home Page'),
-        //SplashScreen()
+        home: SplashScreen()
       ),
     );
   }
@@ -107,12 +106,46 @@ class _MyHomePageState extends State<MyHomePage> {
                   Text(
                     'Enter email attached to your account',
                     style: TextStyle(
-                      color: Color(0xff505780),
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'Gotham',
-                      fontSize: 14
+                        color: Color(0xff505780),
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'Gotham',
+                        fontSize: 14),
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                        filled: true,
+                        labelText: 'Email Address',
+                        labelStyle:
+                            TextStyle(color: Color(0xffAAA8BD), fontSize: 14),
+                        floatingLabelStyle: TextStyle(color: Color(0xff02003D)),
+                        fillColor: Color(0xffFAFBFF),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(16))),
+                  ),
+                  SizedBox(
+                    height: 48,
+                  ),
+                  MaterialButton(
+                    onPressed: () {},
+                    color: Color(0xff02003D),
+                    minWidth: double.infinity,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
                     ),
-                  )
+                    padding: EdgeInsets.symmetric(vertical: 18),
+                    child: Text(
+                      'Continue',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
                 ],
               ),
             ),
