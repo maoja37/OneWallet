@@ -1,15 +1,55 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:async';
+
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:one_wallet/OnboardingProcess/sign_up_screen.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 import 'sign_up_screen.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+ 
+
+   // ignore: close_sinks
+  StreamController<ErrorAnimationType>? errorController;
+
+   bool hasError = false;
+
+  String currentText = "";
+
+  final formKey = GlobalKey<FormState>();
+
+   @override
+  void initState() {
+    errorController = StreamController<ErrorAnimationType>();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    errorController!.close();
+
+    super.dispose();
+  }
+
+snackBar(String? message) {
+    return ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message!),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -168,6 +208,7 @@ class LoginScreen extends StatelessWidget {
   }
 
   void _showSheet(BuildContext context) {
+    
     showFlexibleBottomSheet(
       minHeight: 0,
       initHeight: 0.5,
@@ -271,6 +312,7 @@ class LoginScreen extends StatelessWidget {
   }
 
   void _showSecondSheet(BuildContext context) {
+    TextEditingController textEditingController = TextEditingController();
     showFlexibleBottomSheet(
       minHeight: 0,
       initHeight: 0.5,
@@ -315,7 +357,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 6),
                       Text(
-                        'Enter the 6-digit code sent to your mail',
+                        'Enter the 6-digit code sent to your email',
                         style: TextStyle(
                             color: Color(0xff505780),
                             fontWeight: FontWeight.w400,
@@ -325,25 +367,70 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(
                         height: 40,
                       ),
-                      TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                            filled: true,
-                            labelText: 'Email Address',
-                            labelStyle: TextStyle(
-                                color: Color(0xffAAA8BD), fontSize: 14),
-                            floatingLabelStyle:
-                                TextStyle(color: Color(0xff02003D)),
-                            fillColor: Color(0xffFAFBFF),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(16))),
+                      
+                      Form(
+                key: formKey,
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                        color: Color(0xffFFFFFF),
                       ),
+                      borderRadius: BorderRadius.circular(12)),
+                  
+                  padding:
+                      EdgeInsets.only(left: 60, right: 60, top: 15, bottom: 5),
+                  child: PinCodeTextField(
+                    appContext: context,
+                    pastedTextStyle: TextStyle(
+                      color: Colors.green.shade600,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    length: 6,
+                    obscureText: true,
+      
+                    blinkWhenObscuring: true,
+                    animationType: AnimationType.fade,
+      
+                    pinTheme: PinTheme(
+                      fieldWidth: 18,
+                      fieldHeight: 28,
+                      activeColor: Color(0xffd2d2d2),
+                      inactiveColor: Color(0xffd2d2d2),
+                      activeFillColor: Colors.white,
+                    ),
+                    cursorColor: Colors.transparent,
+                    animationDuration: Duration(milliseconds: 100),
+                    // enableActiveFill: true,
+                    
+                    controller: textEditingController,
+                    keyboardType: TextInputType.number,
+      
+                    onCompleted: (v) {
+                      print("Completed");
+                    },
+      
+                    onChanged: (value) {
+                      print(value);
+                      setState(() {
+                        currentText = value;
+                      });
+                    },
+                    beforeTextPaste: (text) {
+                      print("Allowing to paste $text");
+                      //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
+                      //but you can show anything you want here, like your pop up saying wrong paste format or etc
+                      return true;
+                    },
+                  ),
+                ),
+              ),
+
                       SizedBox(
                         height: 48,
                       ),
                       MaterialButton(
-                        onPressed: () {},
+                        onPressed: (){},
                         color: Color(0xff02003D),
                         minWidth: double.infinity,
                         shape: RoundedRectangleBorder(
