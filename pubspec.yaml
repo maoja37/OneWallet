@@ -53,6 +53,8 @@ dev_dependencies:
   page_transition: ^2.0.4
   pin_code_fields: ^7.3.0
   flutter_svg_opt: ^0.0.1
+  iconsax: ^0.0.8
+  provider: ^6.0.2
 
   
 flutter_native_splash:

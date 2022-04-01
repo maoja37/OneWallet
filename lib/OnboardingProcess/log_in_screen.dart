@@ -12,24 +12,21 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'sign_up_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
- 
-
-   // ignore: close_sinks
+  // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
 
-   bool hasError = false;
+  bool hasError = false;
 
   String currentText = "";
 
   final formKey = GlobalKey<FormState>();
 
-   @override
+  @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
@@ -42,37 +39,31 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-snackBar(String? message) {
-    return ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message!),
-        duration: Duration(seconds: 2),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 86, left: 24, right: 24,),
+          padding: const EdgeInsets.only(
+            top: 86,
+            left: 24,
+            right: 24,
+          ),
           child: Container(
             alignment: Alignment.center,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SvgPicture.asset(   
+                SvgPicture.asset(
                   'assets/one_wallet_logo.svg',
                   width: 56,
                   height: 56,
                 ),
                 SizedBox(
                   height: 40,
-                ),  
-                Text( 
+                ),
+                Text(
                   'Welcome!',
                   style: TextStyle(
                       fontWeight: FontWeight.w700,
@@ -165,10 +156,13 @@ snackBar(String? message) {
                 SizedBox(
                   height: 37,
                 ),
-                SvgPicture.asset(
-                  'assets/fingerpint.svg',
-                  width: 45,
-                  height: 49,
+                GestureDetector(
+                  onTap: () => _showFingerprintSheet(context),
+                  child: SvgPicture.asset(
+                    'assets/fingerpint.svg',
+                    width: 45,
+                    height: 49,
+                  ),
                 ),
                 SizedBox(
                   height: 38,
@@ -195,7 +189,7 @@ snackBar(String? message) {
                                 MaterialPageRoute(
                                     builder: (builder) => SignUpScreen()),
                               );
-                            })
+                            }),
                     ],
                   ),
                 ),
@@ -207,8 +201,66 @@ snackBar(String? message) {
     );
   }
 
+  void _showFingerprintSheet(BuildContext context) {
+    showFlexibleBottomSheet(
+      minHeight: 0,
+      initHeight: 0.412,
+      maxHeight: 0.412,
+      context: context,
+      builder: (context, controller, offset) {
+        return Material(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(32),
+            topRight: Radius.circular(32),
+          ),
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Color(0xFFFFFFFF),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(32),
+                topRight: Radius.circular(32),
+              ),
+            ),
+            child: ListView(
+              controller: controller,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 32,
+                      ),
+                      SvgPicture.asset('assets/Rectangle.svg'),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.080,
+                      ),
+                      SvgPicture.asset(
+                        'assets/fingerprint_login.svg',
+                        
+                      ),
+                      
+                      Text(
+                        'Touch ID sensor to sign in',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff02003D),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   void _showSheet(BuildContext context) {
-    
     showFlexibleBottomSheet(
       minHeight: 0,
       initHeight: 0.5,
@@ -223,10 +275,10 @@ snackBar(String? message) {
           child: Container(
             decoration: const BoxDecoration(
               color: Color(0xFFFFFFFF),
-               borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(32),
-            topRight: Radius.circular(32),
-          ),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(32),
+                topRight: Radius.circular(32),
+              ),
             ),
             child: ListView(
               controller: controller,
@@ -264,7 +316,8 @@ snackBar(String? message) {
                         height: 40,
                       ),
                       Padding(
-                        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom),
                         child: TextField(
                           autofocus: true,
                           keyboardType: TextInputType.emailAddress,
@@ -285,7 +338,7 @@ snackBar(String? message) {
                         height: 48,
                       ),
                       MaterialButton(
-                        onPressed: ()=> _showSecondSheet(context),
+                        onPressed: () => _showSecondSheet(context),
                         color: Color(0xff02003D),
                         minWidth: double.infinity,
                         shape: RoundedRectangleBorder(
@@ -327,10 +380,10 @@ snackBar(String? message) {
           child: Container(
             decoration: const BoxDecoration(
               color: Color(0xFFFFFFFF),
-               borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(32),
-            topRight: Radius.circular(32),
-          ),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(32),
+                topRight: Radius.circular(32),
+              ),
             ),
             child: ListView(
               controller: controller,
@@ -367,70 +420,69 @@ snackBar(String? message) {
                       SizedBox(
                         height: 40,
                       ),
-                      
                       Form(
-                key: formKey,
-                child: Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 1,
-                        color: Color(0xffFFFFFF),
-                      ),
-                      borderRadius: BorderRadius.circular(12)),
-                  
-                  padding:
-                      EdgeInsets.only(left: 60, right: 60, top: 15, bottom: 5),
-                  child: PinCodeTextField(
-                    appContext: context,
-                    pastedTextStyle: TextStyle(
-                      color: Colors.green.shade600,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    length: 6,
-                    obscureText: true,
-      
-                    blinkWhenObscuring: true,
-                    animationType: AnimationType.fade,
-      
-                    pinTheme: PinTheme(
-                      fieldWidth: 18,
-                      fieldHeight: 28,
-                      activeColor: Color(0xffd2d2d2),
-                      inactiveColor: Color(0xffd2d2d2),
-                      activeFillColor: Colors.white,
-                    ),
-                    cursorColor: Colors.transparent,
-                    animationDuration: Duration(milliseconds: 100),
-                    // enableActiveFill: true,
-                    
-                    controller: textEditingController,
-                    keyboardType: TextInputType.number,
-      
-                    onCompleted: (v) {
-                      print("Completed");
-                    },
-      
-                    onChanged: (value) {
-                      print(value);
-                      setState(() {
-                        currentText = value;
-                      });
-                    },
-                    beforeTextPaste: (text) {
-                      print("Allowing to paste $text");
-                      //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
-                      //but you can show anything you want here, like your pop up saying wrong paste format or etc
-                      return true;
-                    },
-                  ),
-                ),
-              ),
+                        key: formKey,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 1,
+                                color: Color(0xffFFFFFF),
+                              ),
+                              borderRadius: BorderRadius.circular(12)),
+                          padding: EdgeInsets.only(
+                              left: 60, right: 60, top: 15, bottom: 5),
+                          child: PinCodeTextField(
+                            appContext: context,
+                            pastedTextStyle: TextStyle(
+                              color: Colors.green.shade600,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            length: 6,
+                            obscureText: true,
 
+                            blinkWhenObscuring: true,
+                            animationType: AnimationType.fade,
+
+                            pinTheme: PinTheme(
+                              fieldWidth: 18,
+                              fieldHeight: 28,
+                              activeColor: Color(0xffd2d2d2),
+                              inactiveColor: Color(0xffd2d2d2),
+                              activeFillColor: Colors.white,
+                            ),
+                            cursorColor: Colors.transparent,
+                            animationDuration: Duration(milliseconds: 100),
+                            // enableActiveFill: true,
+
+                            //I  removed error controller here because it was giving me issues , to put back later
+
+                            controller: textEditingController,
+                            keyboardType: TextInputType.number,
+
+                            onCompleted: (v) {
+                              print("Completed");
+                            },
+
+                            onChanged: (value) {
+                              print(value);
+                              setState(() {
+                                currentText = value;
+                              });
+                            },
+                            beforeTextPaste: (text) {
+                              print("Allowing to paste $text");
+                              //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
+                              //but you can show anything you want here, like your pop up saying wrong paste format or etc
+                              return true;
+                            },
+                          ),
+                        ),
+                      ),
                       SizedBox(
                         height: 48,
                       ),
                       MaterialButton(
-                        onPressed: (){},
+                        onPressed: () {},
                         color: Color(0xff02003D),
                         minWidth: double.infinity,
                         shape: RoundedRectangleBorder(
