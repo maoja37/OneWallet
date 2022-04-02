@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:glassmorphism/glassmorphism.dart';
 
 class MyCards extends StatefulWidget {
   const MyCards({Key? key}) : super(key: key);
@@ -27,6 +29,7 @@ class _MyCardsState extends State<MyCards> {
             ),
             SizedBox(height: 40),
             Stack(
+              clipBehavior: Clip.none,
               children: [
                 Container(
                   padding: EdgeInsets.only(
@@ -42,17 +45,58 @@ class _MyCardsState extends State<MyCards> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      RichText(
+                        text: TextSpan(
+                            text: 'Hi ',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'SF-Pro',
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: 'Peter',
+                                style: GoogleFonts.inter(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700),
+                              )
+                            ]),
+                      ),
+                      SizedBox(height: 4),
                       Text(
-                        'Hi Peter,',
+                        'Welcome back',
                         style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'SF-Pro',
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700),
+                          color: Color(0xffAAA8BD),
+                          fontFamily: 'SF-Pro',
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Color(0xffFFFFFF).withOpacity(.24),
+                        ),
+                        child: Text('Add Card',
+                            style: TextStyle(
+                              color: Color(0xffFFFFFF),
+                              fontFamily: 'SF-Pro',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                            )),
                       )
                     ],
                   ),
-                )
+                ),
+                Positioned(
+                    bottom: 0,
+                    right: -40,
+                    child: Image.asset('assets/man_holding_cup.png', width: 264,height: 211,))
               ],
             )
           ],
