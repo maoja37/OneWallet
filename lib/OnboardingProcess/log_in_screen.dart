@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:one_wallet/OnboardingProcess/sign_up_screen.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'sign_up_screen.dart';
 
@@ -237,15 +238,18 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: MediaQuery.of(context).size.height * 0.080,
                       ),
                       SvgPicture.asset(
-                        'assets/fingerprint_login.svg',
-                        
+                        'assets/fingerprint_login.svg'
                       ),
-                      
+                      SizedBox(
+                        height: 32,
+                      ),
                       Text(
                         'Touch ID sensor to sign in',
-                        style: TextStyle(
+                        style: 
+                        TextStyle(
+                          fontFamily: 'SF-Pro',
                           fontSize: 16,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w500,
                           color: Color(0xff02003D),
                         ),
                       ),
