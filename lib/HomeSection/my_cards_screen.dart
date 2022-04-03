@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:glassmorphism/glassmorphism.dart';
+import 'package:one_wallet/models/card_model.dart';
+import 'package:one_wallet/widgets/bank_tile_widget.dart';
 
 class MyCards extends StatefulWidget {
   const MyCards({Key? key}) : super(key: key);
@@ -13,9 +15,18 @@ class MyCards extends StatefulWidget {
 }
 
 class _MyCardsState extends State<MyCards> {
+  CardModel gtbank = CardModel(
+    bankName: 'GTBank',
+    cardNumber: '1234567890123456',
+    expiryDate: '12/20',
+    cardHolderName: 'John Doe',
+    cvvCode: '123',
+  );
+  String sfpro = 'SF-Pro';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24),
         child: Column(
@@ -50,7 +61,7 @@ class _MyCardsState extends State<MyCards> {
                             text: 'Hi ',
                             style: TextStyle(
                               color: Colors.white,
-                              fontFamily: 'SF-Pro',
+                              fontFamily: sfpro,
                               fontSize: 20,
                               fontWeight: FontWeight.w700,
                             ),
@@ -69,7 +80,7 @@ class _MyCardsState extends State<MyCards> {
                         'Welcome back',
                         style: TextStyle(
                           color: Color(0xffAAA8BD),
-                          fontFamily: 'SF-Pro',
+                          fontFamily: sfpro,
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
                         ),
@@ -85,7 +96,7 @@ class _MyCardsState extends State<MyCards> {
                         child: Text('Add Card',
                             style: TextStyle(
                               color: Color(0xffFFFFFF),
-                              fontFamily: 'SF-Pro',
+                              fontFamily: sfpro,
                               fontWeight: FontWeight.w400,
                               fontSize: 12,
                             )),
@@ -96,9 +107,37 @@ class _MyCardsState extends State<MyCards> {
                 Positioned(
                     bottom: 0,
                     right: -40,
-                    child: Image.asset('assets/man_holding_cup.png', width: 264,height: 211,))
+                    child: Image.asset(
+                      'assets/man_holding_cup.png',
+                      width: 264,
+                      height: 211,
+                    ))
               ],
-            )
+            ),
+            SizedBox(
+              height: 48,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'My cards',
+                  style: TextStyle(
+                      fontFamily: sfpro,
+                      fontSize: 16,
+                      color: Color(0xff505780),
+                      fontWeight: FontWeight.w400),
+                ),
+                Text('+ Add card',
+                    style: TextStyle(
+                        fontFamily: sfpro,
+                        fontSize: 14,
+                        color: Color(0xff5F00F8),
+                        fontWeight: FontWeight.w400))
+              ],
+            ),
+            SizedBox(height: 24),
+            BankTile(cardModel: gtbank,)
           ],
         ),
       ),

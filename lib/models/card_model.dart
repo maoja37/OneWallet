@@ -1,10 +1,12 @@
 class CardModel{
+  String bankName;
   String cardNumber;
   String expiryDate;
   String cardHolderName;
   String cvvCode;
 
   CardModel({
+    required this.bankName,
     required this.cardNumber,
     required this.expiryDate,
     required this.cardHolderName,
@@ -13,6 +15,7 @@ class CardModel{
   
    factory CardModel.fromJson(Map<String, dynamic> json) {
     return CardModel(
+      bankName: json['bankName'],
       cardNumber: json['cardNumber'],
       expiryDate: json['expiryDate'],
       cardHolderName: json['cardHolderName'],

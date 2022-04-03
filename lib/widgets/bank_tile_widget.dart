@@ -1,0 +1,47 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:flutter/material.dart';
+import 'package:one_wallet/models/card_model.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+class BankTile extends StatelessWidget {
+  BankTile({required this.cardModel, Key? key}) : super(key: key);
+
+  final CardModel cardModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 21),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      //create list tile with title = cardModel.bankName, subtitle = cardModel.cardNumber and trailing = SvgPicture.asset('assets/mastercard.svg')
+      child: ListTile(
+        //reduce inner padding of listtile to 0
+        contentPadding: EdgeInsets.zero,
+        title: Text(
+          cardModel.bankName,
+          style: TextStyle(
+              fontFamily: 'SF-Pro',
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: Color(0xff0B0B0B)),
+        ),
+        //create subtitle with cardModel.cardNumber that hides the first 4 digits of the number
+        subtitle: Text(
+          cardModel.cardNumber.replaceRange(0, 4, '****'),
+          style: TextStyle(
+              fontFamily: 'SF-Pro',
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: Color(0xffB5B3C5)),
+        ),
+       
+        trailing: SvgPicture.asset('assets/mastercard.svg'),
+      ),
+    );
+  }
+}
