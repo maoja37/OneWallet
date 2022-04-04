@@ -6,6 +6,7 @@ import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:one_wallet/HomeSection/my_cards_screen.dart';
 import 'package:one_wallet/OnboardingProcess/sign_up_screen.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -139,7 +140,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 20,
                 ),
                 MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                     Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => MyCards()));
+                  },
                   color: Color(0xff02003D),
                   minWidth: double.infinity,
                   shape: RoundedRectangleBorder(

@@ -1,8 +1,10 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:one_wallet/models/card_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:iconsax/iconsax.dart';
 
 class BankTile extends StatelessWidget {
   BankTile({required this.cardModel, Key? key}) : super(key: key);
@@ -11,6 +13,25 @@ class BankTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: Slidable(
+        endActionPane: ActionPane(
+          motion: ScrollMotion(),
+          children: [
+            SlidableAction(
+              onPressed: (context) {},
+              backgroundColor: Colors.red,
+              icon: Iconsax.trash,
+            )
+          ],
+        ),
+        child: buildBankTile(),
+      ),
+    );
+  }
+
+  Container buildBankTile() {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 21),
@@ -39,7 +60,7 @@ class BankTile extends StatelessWidget {
               fontWeight: FontWeight.w400,
               color: Color(0xffB5B3C5)),
         ),
-       
+
         trailing: SvgPicture.asset('assets/mastercard.svg'),
       ),
     );
