@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:one_wallet/CardDetailsSection/card_detail.dart';
 import 'package:one_wallet/models/card_model.dart';
 import 'package:one_wallet/widgets/bank_tile_widget.dart';
 
@@ -16,7 +17,7 @@ class MyCards extends StatefulWidget {
 class _MyCardsState extends State<MyCards> {
   CardModel gtbank = CardModel(
     bankName: 'GTBank',
-    cardNumber: '1234567890',
+    cardNumber: '1234567890123456',
     expiryDate: '12/20',
     cardHolderName: 'John Doe',
     cvvCode: '123',
@@ -136,7 +137,14 @@ class _MyCardsState extends State<MyCards> {
               ],
             ),
             SizedBox(height: 24),
-            BankTile(cardModel: gtbank,)
+            GestureDetector(
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (builder) => CardDetails(
+                          cardModel: gtbank,
+                        ))),
+                child: BankTile(
+                  cardModel: gtbank,
+                ))
           ],
         ),
       ),

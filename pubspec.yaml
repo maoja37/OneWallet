@@ -103,6 +103,8 @@ flutter:
       fonts:
         - asset: fonts/FontsFree-Net-SFProText-Regular-1.ttf
           weight: 400
+        - asset: fonts/FontsFree-Net-SFProText-Medium.ttf
+          weight: 500
         - asset: fonts/FontsFree-Net-SFProText-Bold.ttf
           weight: 700  
   #   - family: Trajan Pro
