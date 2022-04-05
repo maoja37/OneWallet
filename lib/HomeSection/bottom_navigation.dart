@@ -55,7 +55,10 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 ? Padding(
                     padding: const EdgeInsets.only(bottom: 4),
                     child:
-                        SvgPicture.asset('assets/bottom_navbar_card_blue.svg'),
+                        Icon(
+                      Iconsax.cards5,
+                      color: Color(0xff02003D),
+                    ),
                   )
                 : Padding(
                     padding: const EdgeInsets.only(bottom: 4),

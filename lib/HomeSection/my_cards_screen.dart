@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:one_wallet/CardDetailsSection/card_detail.dart';
 import 'package:one_wallet/models/card_model.dart';
 import 'package:one_wallet/widgets/bank_tile_widget.dart';
+import 'package:one_wallet/widgets/no_card_available_widget.dart';
 
 class MyCards extends StatefulWidget {
   const MyCards({Key? key}) : super(key: key);
@@ -137,14 +138,15 @@ class _MyCardsState extends State<MyCards> {
               ],
             ),
             SizedBox(height: 24),
-            GestureDetector(
-                onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (builder) => CardDetails(
-                          cardModel: gtbank,
-                        ))),
-                child: BankTile(
-                  cardModel: gtbank,
-                ))
+            NoCardWidget()
+            // GestureDetector(
+            //     onTap: () => Navigator.of(context).push(MaterialPageRoute(
+            //         builder: (builder) => CardDetails(
+            //               cardModel: gtbank,
+            //             ))),
+            //     child: BankTile(
+            //       cardModel: gtbank,
+            //     ))
           ],
         ),
       ),
