@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'change_password_screen.dart';
+
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({Key? key}) : super(key: key);
 
@@ -84,19 +86,82 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
               SizedBox(height: 24),
-              ListTile(
+              GestureDetector(
+                //use onTap to navigate to ChangePasswordScreen
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ChangePasswordScreen(),
+                  ));
+                },
+                child: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: CircleAvatar(
+                    radius: 24,
+                    backgroundColor: Colors.white,
+                    child: Icon(
+                      Iconsax.key,
+                      size: 16,
+                      color: Color(0xffAAA8BD),
+                    ),
+                  ),
+                  title: Text(
+                    'Change password',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 13,
+                      color: Color(0xff0B0B0B),
+                    ),
+                  ),
+                  trailing: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Icon(CupertinoIcons.right_chevron,
+                        color: Color(0xffAAA8BD)),
+                  ),
+                ),
+              ),
+              SizedBox(height: 15),
+              SwitchListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: CircleAvatar(
-                  radius: 16,
+                value: _toggled,
+                onChanged: (value) {
+                  setState(() {
+                    _toggled = value;
+                  });
+                },
+                secondary: CircleAvatar(
+                  radius: 24,
                   backgroundColor: Colors.white,
-                  child: Icon(
-                    Iconsax.key,
-                    size: 16,
-                    color: Color(0xffAAA8BD),
+                  child: SvgPicture.asset(
+                    'assets/fingerprint_tiny_svg.svg',
+                    width: 16,
+                    height: 16,
                   ),
                 ),
                 title: Text(
-                  'Change password',
+                  'Enable finger print/Face ID',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 13,
+                    color: Color(0xff0B0B0B),
+                  ),
+                ),
+                activeColor: Color(0xff002003D),
+              ),
+              SizedBox(height: 15),
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: CircleAvatar(
+                  radius: 24,
+                  backgroundColor: Colors.white,
+                  child: Icon(Iconsax.import, size: 16, color: Color(0xffAAA8BD),)
+                ),
+                title: Text(
+                  'Import settings',
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 13,
@@ -114,33 +179,60 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       color: Color(0xffAAA8BD)),
                 ),
               ),
-              SwitchListTile(
+              SizedBox(height: 15),
+              ListTile(
                 contentPadding: EdgeInsets.zero,
-                value: _toggled,
-                onChanged: (value) {
-                  setState(() {
-                    _toggled = value;
-                  });
-                },
-                secondary: CircleAvatar(
-                  radius: 16,
+                leading: CircleAvatar(
+                  radius: 24,
                   backgroundColor: Colors.white,
-                  child: SvgPicture.asset(
-                    'assets/fingerprint_tiny_svg.svg',
-                    width: 16,
-                    height: 16,
-                  ),
+                  child: Icon(Iconsax.export, size: 16, color: Color(0xffAAA8BD),)
                 ),
                 title: Text(
-                  'Enable finger print/Face ID',
+                  'Export settings',
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 13,
                     color: Color(0xff0B0B0B),
                   ),
                 ),
-                activeColor: Color(0xff002003D),
-              )
+                trailing: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(CupertinoIcons.right_chevron,
+                      color: Color(0xffAAA8BD)),
+                ),
+              ),
+              SizedBox(height: 15),
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: CircleAvatar(
+                  radius: 24,
+                  backgroundColor: Colors.white,
+                  child: Icon(Iconsax.info_circle, size: 16, color: Color(0xffAAA8BD),)
+                ),
+                title: Text(
+                  'Help',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 13,
+                    color: Color(0xff0B0B0B),
+                  ),
+                ),
+                trailing: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(CupertinoIcons.right_chevron,
+                      color: Color(0xffAAA8BD)),
+                ),
+              ),
             ],
           ),
         ),
