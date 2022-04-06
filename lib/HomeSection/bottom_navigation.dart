@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:one_wallet/HomeSection/my_cards_screen.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:one_wallet/ProfileSection/settings_screen.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
   const BottomNavigationScreen({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class BottomNavigationScreen extends StatefulWidget {
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   List<Widget> _screens = [
     MyCards(),
-    Scaffold(),
+    SettingsScreen()
   ];
   int _selectedIndex = 0;
 

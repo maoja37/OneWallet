@@ -27,7 +27,7 @@ class _MyCardsState extends State<MyCards> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xffFAFAFA),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24),
         child: Column(
@@ -138,15 +138,15 @@ class _MyCardsState extends State<MyCards> {
               ],
             ),
             SizedBox(height: 24),
-            NoCardWidget()
-            // GestureDetector(
-            //     onTap: () => Navigator.of(context).push(MaterialPageRoute(
-            //         builder: (builder) => CardDetails(
-            //               cardModel: gtbank,
-            //             ))),
-            //     child: BankTile(
-            //       cardModel: gtbank,
-            //     ))
+            //NoCardWidget()
+            GestureDetector(
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (builder) => CardDetails(
+                          cardModel: gtbank,
+                        ))),
+                child: BankTile(
+                  cardModel: gtbank,
+                ))
           ],
         ),
       ),
