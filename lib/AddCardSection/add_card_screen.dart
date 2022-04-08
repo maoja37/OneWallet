@@ -77,7 +77,6 @@ class _AddCardScreenState extends State<AddCardScreen> {
             TextFormField(
               controller: bankNameController,
               keyboardType: TextInputType.text,
-              
               decoration: InputDecoration(
                   filled: true,
                   hintText: 'Bank name',
@@ -96,7 +95,6 @@ class _AddCardScreenState extends State<AddCardScreen> {
             TextFormField(
               controller: cardHolderNameController,
               keyboardType: TextInputType.text,
-              
               decoration: InputDecoration(
                   filled: true,
                   hintText: 'Card Holder name',
@@ -115,7 +113,6 @@ class _AddCardScreenState extends State<AddCardScreen> {
             TextFormField(
               keyboardType: TextInputType.text,
               controller: cardNumberController,
-              
               decoration: InputDecoration(
                   filled: true,
                   hintText: 'Card Number',
@@ -134,7 +131,6 @@ class _AddCardScreenState extends State<AddCardScreen> {
             TextFormField(
               keyboardType: TextInputType.text,
               controller: cvvController,
-              
               decoration: InputDecoration(
                   filled: true,
                   hintText: 'CVV',
@@ -153,7 +149,6 @@ class _AddCardScreenState extends State<AddCardScreen> {
             TextFormField(
               keyboardType: TextInputType.text,
               controller: expiryDateController,
-              
               decoration: InputDecoration(
                   filled: true,
                   hintText: 'Expiry Date',
@@ -187,7 +182,68 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     expiryDate: expiryDate,
                     cardHolderName: cardHolderName,
                     cvvCode: cvvCode));
-                Navigator.of(context).pop();
+
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    content: Container(
+                        padding: EdgeInsets.all(20),
+                        alignment: Alignment.center,
+                        child: Column(
+                          children: [
+                            Image.asset('assets/dialog_illustration.png',
+                                width: 109, height: 109),
+                            SizedBox(
+                              height: 16,
+                            ),
+                            Text(
+                              'Welldone!',
+                              style: TextStyle(
+                                fontFamily: 'SF-Pro',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xff0B0B0B),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            Text(
+                              'You have successfully added\n a card to your wallet',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'SF-Pro',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xffAAA8BD),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 24,
+                            ),
+                            MaterialButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              color: Color(0xff02003D),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 16, horizontal: 62),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24),
+                              ),
+                              child: Text('Done',
+                                  style: TextStyle(
+                                    fontFamily: 'SF-Pro',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white,
+                                  )),
+                            )
+                          ],
+                        )),
+                  ),
+                );
+                // Navigator.of(context).pop();
               },
               color: Color(0xff02003D),
               minWidth: double.infinity,
