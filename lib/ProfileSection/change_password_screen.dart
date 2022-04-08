@@ -53,7 +53,6 @@ class ChangePasswordScreen extends StatelessWidget {
                           color: Color(0xffAAA8BD),
                           fontSize: 14,
                           fontWeight: FontWeight.w400),
-  
                       fillColor: Color(0xffFAFBFF),
                       border: OutlineInputBorder(
                           borderSide: BorderSide.none,

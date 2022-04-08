@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_final_fields, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:one_wallet/AddCardSection/add_card_screen.dart';
 import 'package:one_wallet/HomeSection/my_cards_screen.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -36,7 +37,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         width: 56,
         child: FittedBox(
           child: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddCardScreen()));
+            },
             child: Icon(
               Iconsax.add,
               color: Colors.white,
