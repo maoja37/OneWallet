@@ -24,7 +24,7 @@ class CardProvider extends ChangeNotifier {
   }
 
 //remove credit card details from list
-  void removeCardModel(CardModel cardModel) {
+  void deleteCardModel(CardModel cardModel) {
     _cardModelList.remove(cardModel);
     notifyListeners();
   }

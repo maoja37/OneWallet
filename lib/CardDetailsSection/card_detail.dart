@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:one_wallet/models/card_model.dart';
-
+import 'package:one_wallet/provider/wallet_provider.dart';
 import 'package:one_wallet/widgets/dummy_card_widget.dart';
 import 'package:iconsax/iconsax.dart';
-
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class CardDetails extends StatelessWidget {
   final CardModel cardModel;
@@ -16,6 +16,7 @@ class CardDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<CardProvider>(context, listen: false);
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -80,22 +81,28 @@ class CardDetails extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 4),
-              ListTile(
-                contentPadding: EdgeInsets.only(left: 20),
-                leading: Icon(Iconsax.trash, color: Color(0xff02003D)),
-                title: Text(
-                  'Delete card',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xff505780),
+              GestureDetector(
+                onTap: () {
+                  provider.deleteCardModel(cardModel);
+                  Navigator.pop(context);
+                },
+                child: ListTile(
+                  contentPadding: EdgeInsets.only(left: 20),
+                  leading: Icon(Iconsax.trash, color: Color(0xff02003D)),
+                  title: Text(
+                    'Delete card',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xff505780),
+                    ),
                   ),
-                ),
-                subtitle: Text(
-                  'Delete this card',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xffAAA8BD),
+                  subtitle: Text(
+                    'Delete this card',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xffAAA8BD),
+                    ),
                   ),
                 ),
               ),

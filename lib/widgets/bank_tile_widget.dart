@@ -5,6 +5,8 @@ import 'package:one_wallet/models/card_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:one_wallet/provider/wallet_provider.dart';
+import 'package:provider/provider.dart';
 
 class BankTile extends StatelessWidget {
   BankTile({required this.cardModel, Key? key}) : super(key: key);
@@ -13,6 +15,7 @@ class BankTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<CardProvider>(context);
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
       child: Slidable(
@@ -20,7 +23,9 @@ class BankTile extends StatelessWidget {
           motion: ScrollMotion(),
           children: [
             SlidableAction(
-              onPressed: (context) {},
+              onPressed: (context) {
+                provider.deleteCardModel(cardModel);
+              },
               backgroundColor: Colors.red,
               icon: Iconsax.trash,
             )

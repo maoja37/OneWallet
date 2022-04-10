@@ -20,7 +20,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
   final _formKey = GlobalKey<FormState>();
 
   //this variables are controllers attached to Form Fields to monitor them
-  final bankNameController = TextEditingController();
+  final bankNameController = TextEditingController(text: 'Muyiwa Oyinloye');
   final cardNumberController = TextEditingController();
   final expiryDateController = TextEditingController();
   final cardHolderNameController = TextEditingController();
@@ -142,6 +142,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                 TextFormField(
                   keyboardType: TextInputType.number,
                   controller: cardNumberController,
+                  
                   autovalidateMode: _submitted
                       ? AutovalidateMode.onUserInteraction
                       : AutovalidateMode.disabled,
@@ -166,7 +167,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                       border: OutlineInputBorder(
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(16))),
-                ),
+                ), 
                 SizedBox(
                   height: 16,
                 ),
