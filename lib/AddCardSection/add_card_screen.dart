@@ -2,6 +2,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:one_wallet/helpers/custom_input_formatter.dart';
 import 'package:one_wallet/models/card_model.dart';
 import 'package:one_wallet/provider/wallet_provider.dart';
 import 'package:one_wallet/widgets/dummy_card_widget.dart';
@@ -152,6 +154,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     }
                     return null;
                   },
+                 
                   decoration: InputDecoration(
                       filled: true,
                       hintText: 'Card Number',
@@ -237,23 +240,20 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     });
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
+                      bankName = bankNameController.text;
+                      cardHolderName = cardHolderNameController.text;
+                      cardNumber = cardNumberController.text;
+                      cvvCode = cvvController.text;
+                      expiryDate = expiryDateController.text;
+
+                      provider.addCardModel(CardModel(
+                          bankName: bankName,
+                          cardNumber: cardNumber,
+                          expiryDate: expiryDate,
+                          cardHolderName: cardHolderName,
+                          cvvCode: cvvCode));
+                      _showCompletedDialog(context);
                     }
-
-                    bankName = bankNameController.text;
-                    cardHolderName = cardHolderNameController.text;
-                    cardNumber = cardNumberController.text;
-                    cvvCode = cvvController.text;
-                    expiryDate = expiryDateController.text;
-
-                    provider.addCardModel(CardModel(
-                        bankName: bankName,
-                        cardNumber: cardNumber,
-                        expiryDate: expiryDate,
-                        cardHolderName: cardHolderName,
-                        cvvCode: cvvCode));
-
-                    _showCompletedDialog(context);
-                    // Navigator.of(context).pop();
                   },
                   color: Color(0xff02003D),
                   minWidth: double.infinity,
