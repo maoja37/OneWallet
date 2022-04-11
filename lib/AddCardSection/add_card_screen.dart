@@ -2,8 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:one_wallet/helpers/custom_input_formatter.dart';
 import 'package:one_wallet/models/card_model.dart';
 import 'package:one_wallet/provider/wallet_provider.dart';
 import 'package:one_wallet/widgets/dummy_card_widget.dart';
@@ -20,7 +18,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
   final _formKey = GlobalKey<FormState>();
 
   //this variables are controllers attached to Form Fields to monitor them
-  final bankNameController = TextEditingController(text: 'Muyiwa Oyinloye');
+  final bankNameController = TextEditingController();
   final cardNumberController = TextEditingController();
   final expiryDateController = TextEditingController();
   final cardHolderNameController = TextEditingController();
@@ -142,7 +140,6 @@ class _AddCardScreenState extends State<AddCardScreen> {
                 TextFormField(
                   keyboardType: TextInputType.number,
                   controller: cardNumberController,
-                  
                   autovalidateMode: _submitted
                       ? AutovalidateMode.onUserInteraction
                       : AutovalidateMode.disabled,
@@ -155,7 +152,6 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     }
                     return null;
                   },
-                 
                   decoration: InputDecoration(
                       filled: true,
                       hintText: 'Card Number',
@@ -167,7 +163,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                       border: OutlineInputBorder(
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(16))),
-                ), 
+                ),
                 SizedBox(
                   height: 16,
                 ),
@@ -282,61 +278,61 @@ class _AddCardScreenState extends State<AddCardScreen> {
   Future<dynamic> _showCompletedDialog(BuildContext context) {
     return showDialog(
       context: context,
-      builder: (context) => ClipRRect(
-        borderRadius: BorderRadius.circular(32),
-        child: AlertDialog(
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset('assets/dialog_illustration.png',
-                  width: 109, height: 109),
-              SizedBox(
-                height: 16,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(32),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset('assets/dialog_illustration.png',
+                width: 109, height: 109),
+            SizedBox(
+              height: 16,
+            ),
+            Text(
+              'Welldone!',
+              style: TextStyle(
+                fontFamily: 'SF-Pro',
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Color(0xff0B0B0B),
               ),
-              Text(
-                'Welldone!',
-                style: TextStyle(
-                  fontFamily: 'SF-Pro',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xff0B0B0B),
-                ),
+            ),
+            SizedBox(
+              height: 4,
+            ),
+            Text(
+              'You have successfully added\n a card to your wallet',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'SF-Pro',
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: Color(0xffAAA8BD),
               ),
-              SizedBox(
-                height: 4,
+            ),
+            SizedBox(
+              height: 24,
+            ),
+            MaterialButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              color: Color(0xff02003D),
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 62),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
               ),
-              Text(
-                'You have successfully added\n a card to your wallet',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'SF-Pro',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xffAAA8BD),
-                ),
-              ),
-              SizedBox(
-                height: 24,
-              ),
-              MaterialButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                color: Color(0xff02003D),
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 62),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: Text('Done',
-                    style: TextStyle(
-                      fontFamily: 'SF-Pro',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
-                    )),
-              )
-            ],
-          ),
+              child: Text('Done',
+                  style: TextStyle(
+                    fontFamily: 'SF-Pro',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  )),
+            )
+          ],
         ),
       ),
     );

@@ -19,10 +19,12 @@ class BankTile extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
       child: Slidable(
+        
         endActionPane: ActionPane(
           motion: ScrollMotion(),
           children: [
             SlidableAction(
+              spacing: 2,
               onPressed: (context) {
                 provider.deleteCardModel(cardModel);
               },

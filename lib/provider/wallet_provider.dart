@@ -13,7 +13,6 @@ class CardProvider extends ChangeNotifier {
         cardHolderName: 'John Doe',
         cvvCode: '123',
         cardType: 'master'),
-    
   ];
 
 //add credit card details to list
@@ -30,7 +29,19 @@ class CardProvider extends ChangeNotifier {
   }
 
 //update credit card details in list
-  void updateCardModel(CardModel cardModel) {
+  void updateCardModel(
+      CardModel cardModel,
+      String bankName,
+      String cardNumber,
+      String expiryDate,
+      String cardHolderName,
+      String cvvCode,
+      ) {
+    cardModel.bankName = bankName;
+    cardModel.cardNumber = cardNumber;
+    cardModel.expiryDate = expiryDate;
+    cardModel.cardHolderName = cardHolderName;
+    cardModel.cvvCode = cvvCode;
     notifyListeners();
   }
 

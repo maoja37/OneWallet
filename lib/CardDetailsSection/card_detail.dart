@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:one_wallet/CardDetailsSection/edit_card_screen.dart';
 
 import 'package:one_wallet/models/card_model.dart';
 import 'package:one_wallet/provider/wallet_provider.dart';
@@ -10,10 +11,15 @@ import 'package:iconsax/iconsax.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-class CardDetails extends StatelessWidget {
+class CardDetails extends StatefulWidget {
   final CardModel cardModel;
   const CardDetails({required this.cardModel, Key? key}) : super(key: key);
 
+  @override
+  State<CardDetails> createState() => _CardDetailsState();
+}
+
+class _CardDetailsState extends State<CardDetails> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<CardProvider>(context, listen: false);
@@ -30,7 +36,7 @@ class CardDetails extends StatelessWidget {
                     CupertinoIcons.arrow_left,
                   )),
               SizedBox(height: 32),
-              DummyCardWidget(cardModel: cardModel),
+              DummyCardWidget(cardModel: widget.cardModel),
               SizedBox(height: 50),
               Text(
                 'Manage card',
@@ -61,29 +67,34 @@ class CardDetails extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 4),
-              ListTile(
-                contentPadding: EdgeInsets.only(left: 20),
-                leading: Icon(Iconsax.setting_4, color: Color(0xff02003D)),
-                title: Text(
-                  'Edit card',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xff505780),
+              GestureDetector(
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (builder) =>
+                        EditCardScreen(cardModel: widget.cardModel))),
+                child: ListTile(
+                  contentPadding: EdgeInsets.only(left: 20),
+                  leading: Icon(Iconsax.setting_4, color: Color(0xff02003D)),
+                  title: Text(
+                    'Edit card',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xff505780),
+                    ),
                   ),
-                ),
-                subtitle: Text(
-                  'Change your card details',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xffAAA8BD),
+                  subtitle: Text(
+                    'Change your card details',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xffAAA8BD),
+                    ),
                   ),
                 ),
               ),
               SizedBox(height: 4),
               GestureDetector(
                 onTap: () {
-                  provider.deleteCardModel(cardModel);
+                  provider.deleteCardModel(widget.cardModel);
                   Navigator.pop(context);
                 },
                 child: ListTile(
