@@ -13,6 +13,7 @@ class BankTile extends StatelessWidget {
 
   final CardModel cardModel;
 
+  bool _isDeleted = false;
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<CardProvider>(context);
@@ -20,12 +21,41 @@ class BankTile extends StatelessWidget {
       borderRadius: BorderRadius.circular(16),
       child: Slidable(
         endActionPane: ActionPane(
+          extentRatio: 0.25,
           motion: ScrollMotion(),
           children: [
             SlidableAction(
-              spacing: 1,
-              onPressed: (context) {
-                provider.deleteCardModel(cardModel);
+              onPressed: (context)  async{
+                await showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                            title: Text('Delete card'),
+                            content: Text(
+                                'Are you sure you want to delete this card?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  _isDeleted = true;
+                                
+                                },
+                                child: Text(
+                                  'Yes',
+                                  textAlign: TextAlign.end,
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                
+                                },
+                                child: Text(
+                                  'No',
+                                  textAlign: TextAlign.end,
+                                ),
+                              ),
+                            ]));
+                _isDeleted?  provider.deleteCardModel(cardModel): null;
               },
               backgroundColor: Colors.red,
               icon: Iconsax.trash,
