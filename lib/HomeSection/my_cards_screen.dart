@@ -138,7 +138,8 @@ class _MyCardsState extends State<MyCards> {
                           fontWeight: FontWeight.w400))
                 ],
               ),
-              cards.isEmpty ? NoCardWidget() : BankListWidget()
+              cards.isEmpty ? NoCardWidget() : 
+              BankListWidget()
             ],
           ),
         ),
