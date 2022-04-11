@@ -20,7 +20,7 @@ class _BankListWidgetState extends State<BankListWidget> {
   Widget build(BuildContext context) {
     final provider = Provider.of<CardProvider>(context);
     final cards = provider.cardModelList;
-    print(cards);
+
     return Flexible(
       fit: FlexFit.loose,
       child: ListView.separated(

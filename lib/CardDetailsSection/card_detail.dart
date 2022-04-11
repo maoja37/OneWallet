@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:one_wallet/CardDetailsSection/edit_card_screen.dart';
 
 import 'package:one_wallet/models/card_model.dart';
@@ -47,22 +48,35 @@ class _CardDetailsState extends State<CardDetails> {
                     color: Color(0xff0B0B0B)),
               ),
               SizedBox(height: 24),
-              ListTile(
-                contentPadding: EdgeInsets.only(left: 20),
-                leading: SvgPicture.asset('assets/copy_tiny_svg.svg'),
-                title: Text(
-                  'Copy card details',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xff505780),
+              GestureDetector(
+                onTap: () {
+                  Clipboard.setData(
+                          ClipboardData(text: widget.cardModel.cardNumber))
+                      .then((value) =>
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Card number copied to clipboard'),
+                              duration: Duration(seconds: 2),
+                            ),
+                          ));
+                },
+                child: ListTile(
+                  contentPadding: EdgeInsets.only(left: 20),
+                  leading: SvgPicture.asset('assets/copy_tiny_svg.svg'),
+                  title: Text(
+                    'Copy card details',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xff505780),
+                    ),
                   ),
-                ),
-                subtitle: Text(
-                  'Copy card number, name and expiry date',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xffAAA8BD),
+                  subtitle: Text(
+                    'Copy card number, name and expiry date',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xffAAA8BD),
+                    ),
                   ),
                 ),
               ),

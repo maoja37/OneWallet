@@ -18,6 +18,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     precacheImage(AssetImage('assets/onboarding_card.png'), context);
+    precachePicture(
+        ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
+            'assets/no_card_available_illustration.svg'),
+        context);
     return ChangeNotifierProvider(
       create: (_) => CardProvider(),
       child: DismissKeyboard(

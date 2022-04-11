@@ -198,6 +198,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   height: 16,
                 ),
                 TextFormField(
+                  
                   keyboardType: TextInputType.text,
                   controller: expiryDateController,
                   autovalidateMode: _submitted
@@ -216,6 +217,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     return null;
                   },
                   decoration: InputDecoration(
+                    helperText: 'MM/YY',
                       filled: true,
                       hintText: 'Expiry Date',
                       hintStyle: TextStyle(
@@ -231,7 +233,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   height: 36,
                 ),
                 MaterialButton(
-                  onPressed: () {
+                  onPressed: () async {
                     setState(() {
                       _submitted = true;
                     });
@@ -249,7 +251,9 @@ class _AddCardScreenState extends State<AddCardScreen> {
                           expiryDate: expiryDate,
                           cardHolderName: cardHolderName,
                           cvvCode: cvvCode));
-                      _showCompletedDialog(context);
+                      await _showCompletedDialog(context);
+
+                      Navigator.of(context).pop();
                     }
                   },
                   color: Color(0xff02003D),

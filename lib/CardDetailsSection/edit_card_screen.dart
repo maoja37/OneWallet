@@ -136,7 +136,7 @@ class _EditCardScreenState extends State<EditCardScreen> {
                   height: 16,
                 ),
                 TextFormField(
-                  //initialValue: widget.cardModel.cardHolderName,
+                 
                   controller: cardHolderNameController,
                   keyboardType: TextInputType.text,
                   autovalidateMode: _submitted
@@ -158,7 +158,7 @@ class _EditCardScreenState extends State<EditCardScreen> {
                   height: 16,
                 ),
                 TextFormField(
-                  //initialValue: widget.cardModel.cardNumber,
+             
                   keyboardType: TextInputType.number,
                   controller: cardNumberController,
                   autovalidateMode: _submitted
@@ -189,7 +189,7 @@ class _EditCardScreenState extends State<EditCardScreen> {
                   height: 16,
                 ),
                 TextFormField(
-                  //initialValue: widget.cardModel.cvvCode,
+
                   keyboardType: TextInputType.text,
                   controller: cvvController,
                   autovalidateMode: _submitted
@@ -220,7 +220,7 @@ class _EditCardScreenState extends State<EditCardScreen> {
                   height: 16,
                 ),
                 TextFormField(
-                  //initialValue: widget.cardModel.expiryDate,
+
                   keyboardType: TextInputType.text,
                   controller: expiryDateController,
                   autovalidateMode: _submitted
@@ -239,6 +239,7 @@ class _EditCardScreenState extends State<EditCardScreen> {
                     return null;
                   },
                   decoration: InputDecoration(
+                    helperText: 'MM/YY',
                       filled: true,
                       hintText: 'Expiry Date',
                       hintStyle: TextStyle(
@@ -254,7 +255,7 @@ class _EditCardScreenState extends State<EditCardScreen> {
                   height: 36,
                 ),
                 MaterialButton(
-                  onPressed: () {
+                  onPressed: () async {
                     setState(() {
                       _submitted = true;
                     });
@@ -274,7 +275,11 @@ class _EditCardScreenState extends State<EditCardScreen> {
                         cardHolderName,
                         cvvCode,
                       );
-                      _showCompletedDialog(context);
+
+
+                      await _showCompletedDialog(context);
+
+                      Navigator.of(context).pop();
                     }
                   },
                   color: Color(0xff02003D),

@@ -5,9 +5,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:one_wallet/CardDetailsSection/card_detail.dart';
 import 'package:one_wallet/models/card_model.dart';
+import 'package:one_wallet/provider/wallet_provider.dart';
 import 'package:one_wallet/widgets/bank_list_widget.dart';
 import 'package:one_wallet/widgets/bank_tile_widget.dart';
 import 'package:one_wallet/widgets/no_card_available_widget.dart';
+
+import 'package:provider/provider.dart';
 
 class MyCards extends StatefulWidget {
   const MyCards({Key? key}) : super(key: key);
@@ -17,10 +20,11 @@ class MyCards extends StatefulWidget {
 }
 
 class _MyCardsState extends State<MyCards> {
-  
   String sfpro = 'SF-Pro';
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<CardProvider>(context);
+    final cards = provider.cardModelList;
     return Scaffold(
       backgroundColor: Color(0xffFAFAFA),
       body: SingleChildScrollView(
@@ -85,8 +89,8 @@ class _MyCardsState extends State<MyCards> {
                         ),
                         SizedBox(height: 16),
                         Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 28, vertical: 12),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
                             color: Color(0xffFFFFFF).withOpacity(.24),
@@ -134,9 +138,7 @@ class _MyCardsState extends State<MyCards> {
                           fontWeight: FontWeight.w400))
                 ],
               ),
-              
-              
-             BankListWidget()
+              cards.isEmpty ? NoCardWidget() : BankListWidget()
             ],
           ),
         ),

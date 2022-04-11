@@ -8,29 +8,27 @@ class NoCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        alignment: Alignment.center,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-        
-          children: [
-              SvgPicture.asset(
-                'assets/no_card_available_illustration.svg',
-                
+    return Container(
+      alignment: Alignment.center,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+      
+        children: [
+            SvgPicture.asset(
+              'assets/no_card_available_illustration.svg',
+              
+            ),
+            SizedBox(height: 30),
+            Text(
+              'You have no card in your wallet',
+              style: TextStyle(
+                fontFamily: 'SF-Pro',
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: Color(0xff505780),
               ),
-              SizedBox(height: 30),
-              Text(
-                'You have no card in your wallet',
-                style: TextStyle(
-                  fontFamily: 'SF-Pro',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xff505780),
-                ),
-              ),
-          ],
-        ),
+            ),
+        ],
       ),
     );
   }
