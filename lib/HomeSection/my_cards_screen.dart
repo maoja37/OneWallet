@@ -65,7 +65,7 @@ class _MyCardsState extends State<MyCards> {
                                 color: Colors.white,
                                 fontFamily: sfpro,
                                 fontSize: 20,
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeight.w500,
                               ),
                               children: [
                                 TextSpan(
