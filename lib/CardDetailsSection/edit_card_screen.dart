@@ -279,7 +279,7 @@ class _EditCardScreenState extends State<EditCardScreen> {
 
                       await _showCompletedDialog(context);
 
-                      Navigator.of(context).pop();
+                      Navigator.of(context).pop(true);
                     }
                   },
                   color: Color(0xff02003D),

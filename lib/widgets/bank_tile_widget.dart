@@ -25,7 +25,7 @@ class BankTile extends StatelessWidget {
           motion: ScrollMotion(),
           children: [
             SlidableAction(
-              onPressed: (context)  async{
+              onPressed: (context) async {
                 await showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
@@ -34,29 +34,26 @@ class BankTile extends StatelessWidget {
                                 'Are you sure you want to delete this card?'),
                             actions: [
                               TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  _isDeleted = true;
-                                
-                                },
-                                child: Text(
-                                  'Yes',
-                                  textAlign: TextAlign.end,
-                                ),
-                              ),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    _isDeleted = true;
+                                  },
+                                  child: Text(
+                                    'Yes',
+                                    textAlign: TextAlign.end,
+                                  )),
                               TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                
-                                },
-                                child: Text(
-                                  'No',
-                                  textAlign: TextAlign.end,
-                                ),
-                              ),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    'No',
+                                    textAlign: TextAlign.end,
+                                  ))
                             ]));
-                _isDeleted?  provider.deleteCardModel(cardModel): null;
+                _isDeleted ? provider.deleteCardModel(cardModel) : null;
               },
+
               backgroundColor: Colors.red,
               icon: Iconsax.trash,
             )

@@ -123,7 +123,7 @@ class DummyCardWidget extends StatelessWidget {
                             )
                           ],
                         ),
-                      ))
+                      ))   
                 ],
               );
   }

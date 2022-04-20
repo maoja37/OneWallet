@@ -82,9 +82,14 @@ class _CardDetailsState extends State<CardDetails> {
               ),
               SizedBox(height: 4),
               GestureDetector(
-                onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (builder) =>
-                        EditCardScreen(cardModel: widget.cardModel))),
+                onTap: () async {
+                  var res = await Navigator.of(context).push(MaterialPageRoute(
+                      builder: (builder) =>
+                          EditCardScreen(cardModel: widget.cardModel)));
+                  if (res != null && res == true) {
+                    setState(() {});
+                  }
+                },
                 child: ListTile(
                   contentPadding: EdgeInsets.only(left: 20),
                   leading: Icon(Iconsax.setting_4, color: Color(0xff02003D)),
