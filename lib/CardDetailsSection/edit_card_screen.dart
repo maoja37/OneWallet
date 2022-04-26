@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:one_wallet/database/database.dart';
 import 'package:one_wallet/models/card_model.dart';
 import 'package:one_wallet/provider/wallet_provider.dart';
 import 'package:one_wallet/widgets/dummy_card_widget.dart';
@@ -10,7 +11,7 @@ import 'package:provider/provider.dart';
 class EditCardScreen extends StatefulWidget {
   EditCardScreen({required this.cardModel, Key? key}) : super(key: key);
 
-  CardModel cardModel;
+  CardData cardModel;
 
   @override
   State<EditCardScreen> createState() => _EditCardScreenState();
@@ -37,6 +38,8 @@ class _EditCardScreenState extends State<EditCardScreen> {
 
   //use this to keep track of when the form is submitted
   bool _submitted = false;
+
+  late AppDatabase _database;
 
   @override
   void dispose() {
@@ -66,7 +69,7 @@ class _EditCardScreenState extends State<EditCardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<CardProvider>(context, listen: false);
+    _database = Provider.of<AppDatabase>(context);
     return Scaffold(
       backgroundColor: Color(0xffFAFAFA),
       body: SingleChildScrollView(
@@ -104,7 +107,8 @@ class _EditCardScreenState extends State<EditCardScreen> {
                 ),
                 SizedBox(height: 28),
                 DummyCardWidget(
-                  cardModel: CardModel(
+                  cardModel: CardData(
+                    id: 1,
                     cardNumber: widget.cardModel.cardNumber,
                     bankName: widget.cardModel.bankName,
                     cardHolderName: widget.cardModel.cardHolderName,
@@ -136,7 +140,6 @@ class _EditCardScreenState extends State<EditCardScreen> {
                   height: 16,
                 ),
                 TextFormField(
-                 
                   controller: cardHolderNameController,
                   keyboardType: TextInputType.text,
                   autovalidateMode: _submitted
@@ -158,7 +161,6 @@ class _EditCardScreenState extends State<EditCardScreen> {
                   height: 16,
                 ),
                 TextFormField(
-             
                   keyboardType: TextInputType.number,
                   controller: cardNumberController,
                   autovalidateMode: _submitted
@@ -189,8 +191,7 @@ class _EditCardScreenState extends State<EditCardScreen> {
                   height: 16,
                 ),
                 TextFormField(
-
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.number,
                   controller: cvvController,
                   autovalidateMode: _submitted
                       ? AutovalidateMode.onUserInteraction
@@ -220,7 +221,6 @@ class _EditCardScreenState extends State<EditCardScreen> {
                   height: 16,
                 ),
                 TextFormField(
-
                   keyboardType: TextInputType.text,
                   controller: expiryDateController,
                   autovalidateMode: _submitted
@@ -239,7 +239,7 @@ class _EditCardScreenState extends State<EditCardScreen> {
                     return null;
                   },
                   decoration: InputDecoration(
-                    helperText: 'MM/YY',
+                      helperText: 'MM/YY',
                       filled: true,
                       hintText: 'Expiry Date',
                       hintStyle: TextStyle(
@@ -267,19 +267,26 @@ class _EditCardScreenState extends State<EditCardScreen> {
                       cvvCode = cvvController.text;
                       expiryDate = expiryDateController.text;
 
-                      provider.updateCardModel(
-                        widget.cardModel,
-                        bankName,
-                        cardNumber,
-                        expiryDate,
-                        cardHolderName,
-                        cvvCode,
-                      );
+                      // provider.updateCardModel(
+                      //   widget.cardModel,
+                      //   bankName,
+                      //   cardNumber,
+                      //   expiryDate,
+                      //   cardHolderName,
+                      //   cvvCode,
+                      // );
 
+                      _database.updateCard(CardData(
+                          id: widget.cardModel.id,
+                          bankName: bankName,
+                          cardNumber: cardNumber,
+                          expiryDate: expiryDate,
+                          cardHolderName: cardHolderName,
+                          cvvCode: cvvCode));
 
                       await _showCompletedDialog(context);
 
-                      Navigator.of(context).pop(true);
+                      Navigator.pop(context,true);
                     }
                   },
                   color: Color(0xff02003D),

@@ -15,24 +15,6 @@ class CardModel{
     this.cardType
   });
   
-   factory CardModel.fromJson(Map<String, dynamic> json) {
-    return CardModel(
-      bankName: json['bankName'],
-      cardNumber: json['cardNumber'],
-      expiryDate: json['expiryDate'],
-      cardHolderName: json['cardHolderName'],
-      cvvCode: json['cvvCode'],
-      cardType: json['cardType']
-    );
-  }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['cardNumber'] = this.cardNumber;
-    data['expiryDate'] = this.expiryDate;
-    data['cardHolderName'] = this.cardHolderName;
-    data['cvvCode'] = this.cvvCode;
-    return data;
-  }
 }
 

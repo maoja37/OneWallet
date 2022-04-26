@@ -1,16 +1,14 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:one_wallet/CardDetailsSection/card_detail.dart';
-import 'package:one_wallet/models/card_model.dart';
-import 'package:one_wallet/provider/wallet_provider.dart';
+import 'package:one_wallet/AddCardSection/add_card_screen.dart';
+import 'package:one_wallet/database/database.dart';
 import 'package:one_wallet/widgets/bank_list_widget.dart';
-import 'package:one_wallet/widgets/bank_tile_widget.dart';
 import 'package:one_wallet/widgets/no_card_available_widget.dart';
-
 import 'package:provider/provider.dart';
+
+
 
 class MyCards extends StatefulWidget {
   const MyCards({Key? key}) : super(key: key);
@@ -19,12 +17,15 @@ class MyCards extends StatefulWidget {
   State<MyCards> createState() => _MyCardsState();
 }
 
+
 class _MyCardsState extends State<MyCards> {
   String sfpro = 'SF-Pro';
+
+  late AppDatabase database;
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<CardProvider>(context);
-    final cards = provider.cardModelList;
+    
+    database = Provider.of<AppDatabase>(context);
     return Scaffold(
       backgroundColor: Color(0xffFAFAFA),
       body: SingleChildScrollView(
@@ -88,20 +89,30 @@ class _MyCardsState extends State<MyCards> {
                           ),
                         ),
                         SizedBox(height: 16),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 28, vertical: 12),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: Color(0xffFFFFFF).withOpacity(.24),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AddCardScreen(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 28, vertical: 12),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              color: Color(0xffFFFFFF).withOpacity(.24),
+                            ),
+                            child: Text('Add Card',
+                                style: TextStyle(
+                                  color: Color(0xffFFFFFF),
+                                  fontFamily: sfpro,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                )),
                           ),
-                          child: Text('Add Card',
-                              style: TextStyle(
-                                color: Color(0xffFFFFFF),
-                                fontFamily: sfpro,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
-                              )),
                         )
                       ],
                     ),
@@ -130,7 +141,7 @@ class _MyCardsState extends State<MyCards> {
                         color: Color(0xff505780),
                         fontWeight: FontWeight.w400),
                   ),
-                  Text('+ Add card',
+                  Text('',
                       style: TextStyle(
                           fontFamily: sfpro,
                           fontSize: 14,
@@ -138,12 +149,34 @@ class _MyCardsState extends State<MyCards> {
                           fontWeight: FontWeight.w400))
                 ],
               ),
-              cards.isEmpty ? NoCardWidget() : 
-              BankListWidget()
+              StreamBuilder<List<CardData>>(
+                stream: _watchCards(),
+                builder: (BuildContext context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return NoCardWidget();
+                  } else if (snapshot.connectionState ==
+                          ConnectionState.active ||
+                      snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasError) {
+                      return const Text('There was an error');
+                    } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                      return BankListWidget(cardList: snapshot.data!);
+                    } else {
+                      return const NoCardWidget();
+                    }
+                  } else {
+                    return Text('State: ${snapshot.connectionState}');
+                  }
+                },
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Stream<List<CardData>> _watchCards() {
+    return database.watchEntriesInCard();
   }
 }

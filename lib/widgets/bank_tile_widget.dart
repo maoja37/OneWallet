@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:one_wallet/database/database.dart';
 import 'package:one_wallet/models/card_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -11,12 +12,14 @@ import 'package:provider/provider.dart';
 class BankTile extends StatelessWidget {
   BankTile({required this.cardModel, Key? key}) : super(key: key);
 
-  final CardModel cardModel;
+  final CardData cardModel;
 
   bool _isDeleted = false;
+
+  late AppDatabase database;
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<CardProvider>(context);
+    database = Provider.of<AppDatabase>(context);
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
       child: Slidable(
@@ -51,7 +54,7 @@ class BankTile extends StatelessWidget {
                                     textAlign: TextAlign.end,
                                   ))
                             ]));
-                _isDeleted ? provider.deleteCardModel(cardModel) : null;
+                _isDeleted ? database.deleteCard(cardModel) : null;
               },
 
               backgroundColor: Colors.red,

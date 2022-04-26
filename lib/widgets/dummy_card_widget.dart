@@ -2,11 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:one_wallet/database/database.dart';
 import 'package:one_wallet/models/card_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DummyCardWidget extends StatelessWidget {
-  final CardModel cardModel;
+  final CardData cardModel;
   DummyCardWidget({required this.cardModel, Key? key}) : super(key: key);
 
   @override

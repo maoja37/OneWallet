@@ -12,22 +12,21 @@ class NoCardWidget extends StatelessWidget {
       alignment: Alignment.center,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-      
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-            SvgPicture.asset(
-              'assets/no_card_available_illustration.svg',
-              
+          SvgPicture.asset(
+            'assets/no_card_available_illustration.svg',
+          ),
+          SizedBox(height: 30),
+          Text(
+            'You have no card in your wallet',
+            style: TextStyle(
+              fontFamily: 'SF-Pro',
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: Color(0xff505780),
             ),
-            SizedBox(height: 30),
-            Text(
-              'You have no card in your wallet',
-              style: TextStyle(
-                fontFamily: 'SF-Pro',
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-                color: Color(0xff505780),
-              ),
-            ),
+          ),
         ],
       ),
     );

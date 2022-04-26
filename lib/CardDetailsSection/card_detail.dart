@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:one_wallet/CardDetailsSection/edit_card_screen.dart';
+import 'package:one_wallet/database/database.dart';
 
 import 'package:one_wallet/models/card_model.dart';
 import 'package:one_wallet/provider/wallet_provider.dart';
@@ -13,17 +14,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class CardDetails extends StatefulWidget {
-  final CardModel cardModel;
+  final CardData cardModel;
   const CardDetails({required this.cardModel, Key? key}) : super(key: key);
 
   @override
   State<CardDetails> createState() => _CardDetailsState();
 }
 
+late AppDatabase database;
+bool _isDeleted = false;
 class _CardDetailsState extends State<CardDetails> {
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<CardProvider>(context, listen: false);
+  database = Provider.of<AppDatabase>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -88,6 +91,7 @@ class _CardDetailsState extends State<CardDetails> {
                           EditCardScreen(cardModel: widget.cardModel)));
                   if (res != null && res == true) {
                     setState(() {});
+                    Navigator.pop(context);
                   }
                 },
                 child: ListTile(
@@ -112,10 +116,34 @@ class _CardDetailsState extends State<CardDetails> {
               ),
               SizedBox(height: 4),
               GestureDetector(
-                onTap: () {
-                  provider.deleteCardModel(widget.cardModel);
-                  Navigator.pop(context);
-                },
+                onTap: () async {
+                await showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                            title: Text('Delete card'),
+                            content: Text(
+                                'Are you sure you want to delete this card?'),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    _isDeleted = true;
+                                  },
+                                  child: Text(
+                                    'Yes',
+                                    textAlign: TextAlign.end,
+                                  )),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    'No',
+                                    textAlign: TextAlign.end,
+                                  ))
+                            ]));
+                _isDeleted ? database.deleteCard(widget.cardModel) : null;
+              },
                 child: ListTile(
                   contentPadding: EdgeInsets.only(left: 20),
                   leading: Icon(Iconsax.trash, color: Color(0xff02003D)),

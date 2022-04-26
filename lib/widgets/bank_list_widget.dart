@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:one_wallet/CardDetailsSection/card_detail.dart';
+import 'package:one_wallet/database/database.dart';
 import 'package:one_wallet/provider/wallet_provider.dart';
 import 'package:one_wallet/widgets/bank_tile_widget.dart';
 import 'package:one_wallet/widgets/no_card_available_widget.dart';
@@ -9,7 +10,8 @@ import 'package:provider/provider.dart';
 import 'package:page_transition/page_transition.dart';
 
 class BankListWidget extends StatefulWidget {
-  const BankListWidget({Key? key}) : super(key: key);
+  final List<CardData> cardList;
+  const BankListWidget({Key? key, required this.cardList}) : super(key: key);
 
   @override
   State<BankListWidget> createState() => _BankListWidgetState();
@@ -18,8 +20,7 @@ class BankListWidget extends StatefulWidget {
 class _BankListWidgetState extends State<BankListWidget> {
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<CardProvider>(context);
-    final cards = provider.cardModelList;
+
 
     return Flexible(
       fit: FlexFit.loose,
@@ -31,7 +32,7 @@ class _BankListWidgetState extends State<BankListWidget> {
                     onTap: () => Navigator.of(context).push(
                           PageTransition(
                             child: CardDetails(
-                              cardModel: cards[index],
+                              cardModel: widget.cardList[index],
                             ),
                             type: PageTransitionType.rightToLeft,
                             duration: Duration(
@@ -40,13 +41,13 @@ class _BankListWidgetState extends State<BankListWidget> {
                           ),
                         ),
                     child: BankTile(
-                      cardModel: cards[index],
+                      cardModel: widget.cardList[index],
                     ));
           }),
           separatorBuilder: (context, _) {
             return SizedBox(height: 8);
           },
-          itemCount: cards.length),
+          itemCount: widget.cardList.length),
     );
   }
 }

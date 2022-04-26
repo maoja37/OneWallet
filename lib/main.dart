@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:one_wallet/OnboardingProcess/splash_screen.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:one_wallet/database/database.dart';
 import 'package:one_wallet/provider/wallet_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -22,8 +23,8 @@ class MyApp extends StatelessWidget {
         ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
             'assets/no_card_available_illustration.svg'),
         context);
-    return ChangeNotifierProvider(
-      create: (_) => CardProvider(),
+    return Provider(
+      create: (_) => AppDatabase(),
       child: DismissKeyboard(
         child: MaterialApp(
             debugShowCheckedModeBanner: false,

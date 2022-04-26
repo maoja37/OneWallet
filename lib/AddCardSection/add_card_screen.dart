@@ -6,6 +6,9 @@ import 'package:one_wallet/models/card_model.dart';
 import 'package:one_wallet/provider/wallet_provider.dart';
 import 'package:one_wallet/widgets/dummy_card_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:drift/drift.dart' as dr;
+
+import '../database/database.dart';
 
 class AddCardScreen extends StatefulWidget {
   const AddCardScreen({Key? key}) : super(key: key);
@@ -34,6 +37,8 @@ class _AddCardScreenState extends State<AddCardScreen> {
   //use this to keep track of when the form is submitted
   bool _submitted = false;
 
+  late AppDatabase database;
+
   @override
   void dispose() {
     //dispose all controllers
@@ -48,7 +53,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<CardProvider>(context, listen: false);
+    database = Provider.of<AppDatabase>(context);
     return Scaffold(
       backgroundColor: Color(0xffFAFAFA),
       body: SingleChildScrollView(
@@ -86,7 +91,8 @@ class _AddCardScreenState extends State<AddCardScreen> {
                 ),
                 SizedBox(height: 28),
                 DummyCardWidget(
-                  cardModel: CardModel(
+                  cardModel: CardData(
+                      id: 1,
                       cardNumber: 'XXXXXXXXXXXXXXXX',
                       bankName: '----',
                       cardHolderName: '----',
@@ -168,7 +174,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   height: 16,
                 ),
                 TextFormField(
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.number,
                   controller: cvvController,
                   autovalidateMode: _submitted
                       ? AutovalidateMode.onUserInteraction
@@ -198,7 +204,6 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   height: 16,
                 ),
                 TextFormField(
-                  
                   keyboardType: TextInputType.text,
                   controller: expiryDateController,
                   autovalidateMode: _submitted
@@ -217,7 +222,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     return null;
                   },
                   decoration: InputDecoration(
-                    helperText: 'MM/YY',
+                      helperText: 'MM/YY',
                       filled: true,
                       hintText: 'Expiry Date',
                       hintStyle: TextStyle(
@@ -245,12 +250,12 @@ class _AddCardScreenState extends State<AddCardScreen> {
                       cvvCode = cvvController.text;
                       expiryDate = expiryDateController.text;
 
-                      provider.addCardModel(CardModel(
-                          bankName: bankName,
-                          cardNumber: cardNumber,
-                          expiryDate: expiryDate,
-                          cardHolderName: cardHolderName,
-                          cvvCode: cvvCode));
+                      database.insertCard(CardCompanion(
+                          bankName: dr.Value(bankName),
+                          cardNumber: dr.Value(cardNumber),
+                          expiryDate: dr.Value(expiryDate),
+                          cardHolderName: dr.Value(cardHolderName),
+                          cvvCode: dr.Value(cvvCode)));
                       await _showCompletedDialog(context);
 
                       Navigator.of(context).pop();

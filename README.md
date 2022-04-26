@@ -1,16 +1,11 @@
-# one_wallet
+# OneWallet
 
-A new Flutter project.
+OneWallet - One wallet is a Virtual card holder that keeps all your bank details inside your mobile phone.
+One wallet is a secure platform hence all information is kept offline so it is unhackable. One
+wallet uses Face ID and fingerprint for security. If you need to backup your one wallet data,
+you can export it as a CSV file and save it anywhere of your choice.
+## Screenshots
 
-## Getting Started
+![](screenshots/One-wallet-1.png)
+![](screenshots/One-wallet-2.png)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
