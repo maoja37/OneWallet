@@ -2,9 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:one_wallet/HomeSection/bottom_navigation.dart';
-import 'package:one_wallet/HomeSection/my_cards_screen.dart';
-import 'package:one_wallet/OnboardingProcess/onboarding_screen.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -28,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
         MaterialPageRoute(builder: (context) => BottomNavigationScreen()));
   }
 
-
+                    
 
   @override
   Widget build(BuildContext context) {
