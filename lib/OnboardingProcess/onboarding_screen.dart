@@ -52,7 +52,7 @@ class OnboardingScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24),
               child: Container(
-                child: Text(                                  
+                child: Text(                                                                                                                                                                                              
                   'Hold and manage all your card information safely, on one platform.',
                   textAlign: TextAlign.start,
                   style: TextStyle(

@@ -91,6 +91,7 @@ class _CardDetailsState extends State<CardDetails> {
                           EditCardScreen(cardModel: widget.cardModel)));
                   if (res != null && res == true) {
                     setState(() {});
+                    print(res.toString());
                     Navigator.pop(context);
                   }
                 },

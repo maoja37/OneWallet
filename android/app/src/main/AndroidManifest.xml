@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.one_wallet">
+    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
    <application
-        android:label="one_wallet"
+        android:label="One Wallet"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

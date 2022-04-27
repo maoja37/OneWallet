@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:one_wallet/CardDetailsSection/card_detail.dart';
 import 'package:one_wallet/database/database.dart';
 import 'package:one_wallet/widgets/bank_tile_widget.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:local_auth/local_auth.dart';
 
 class BankListWidget extends StatefulWidget {
   final List<CardData> cardList;
@@ -15,6 +17,24 @@ class BankListWidget extends StatefulWidget {
 }
 
 class _BankListWidgetState extends State<BankListWidget> {
+
+  final LocalAuthentication _authentication = LocalAuthentication();
+
+  bool? _canCheckBiometrics;
+  List<BiometricType>? _availableBiometrics; 
+
+  
+
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _checkBiometrics();
+    _getAvailableBiometrics();
+    super.initState();
+  }
+
 
 
   @override
@@ -28,17 +48,7 @@ class _BankListWidgetState extends State<BankListWidget> {
         physics: BouncingScrollPhysics(),
           itemBuilder: ((context, index) {
             return GestureDetector(
-                    onTap: () => Navigator.of(context).push(
-                          PageTransition(
-                            child: CardDetails(
-                              cardModel: widget.cardList[index],
-                            ),
-                            type: PageTransitionType.rightToLeft,
-                            duration: Duration(
-                              milliseconds: 500,
-                            ),
-                          ),
-                        ),
+                    onTap: () => _authenticate(context, index),
                     child: BankTile(
                       cardModel: widget.cardList[index],
                     ));
@@ -48,5 +58,63 @@ class _BankListWidgetState extends State<BankListWidget> {
           },
           itemCount: widget.cardList.length),
     );
+  }
+
+
+    Future<void> _checkBiometrics() async {
+    bool canCheckBiometrics = false;
+    try {
+      canCheckBiometrics = await _authentication.canCheckBiometrics;
+    } on PlatformException catch (e) {
+      print(e);
+    }
+    if (!mounted) return;
+
+    setState(() {
+      _canCheckBiometrics = canCheckBiometrics;
+    });
+  }
+
+  Future<void> _getAvailableBiometrics() async {
+    List<BiometricType> availableBiometrics = [];
+    try {
+      availableBiometrics = await _authentication.getAvailableBiometrics();
+    } on PlatformException catch (e) {
+      print(e);
+    }
+    if (!mounted) return;
+
+    setState(() {
+      _availableBiometrics = availableBiometrics;
+    });
+  }
+
+  Future<void> _authenticate(BuildContext context, int index) async {
+    bool authenticated = false;
+    try {
+      authenticated = await _authentication.authenticate(
+        localizedReason: 'Scan your fingerprint to authenticate',
+        options: AuthenticationOptions(stickyAuth: true),
+      );
+    } on PlatformException catch (e) {
+      print(e);
+    }
+    if (!mounted) return;
+
+    authenticated ? Navigator.of(context).push(
+                          PageTransition(
+                            child: CardDetails(
+                              cardModel: widget.cardList[index],
+                            ),
+                            type: PageTransitionType.rightToLeft,
+                            duration: Duration(
+                              milliseconds: 500,
+                            ),
+                          ),
+                        ): null;
+
+    setState(() {
+      
+    });
   }
 }
