@@ -153,7 +153,7 @@ class _MyCardsState extends State<MyCards> {
                 stream: _watchCards(),
                 builder: (BuildContext context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return NoCardWidget();
+                    return Center(child: CircularProgressIndicator(),);
                   } else if (snapshot.connectionState ==
                           ConnectionState.active ||
                       snapshot.connectionState == ConnectionState.done) {

@@ -94,7 +94,7 @@ class _CardDetailsState extends State<CardDetails> {
                     print(res.toString());
                     Navigator.pop(context);
                   }
-                },
+                },                                                                                                                                                                            
                 child: ListTile(
                   contentPadding: EdgeInsets.only(left: 20),
                   leading: Icon(Iconsax.setting_4, color: Color(0xff02003D)),
@@ -144,6 +144,8 @@ class _CardDetailsState extends State<CardDetails> {
                                   ))
                             ]));
                 _isDeleted ? database.deleteCard(widget.cardModel) : null;
+
+                Navigator.pop(context);
               },
                 child: ListTile(
                   contentPadding: EdgeInsets.only(left: 20),

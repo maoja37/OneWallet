@@ -49,7 +49,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar( 
+        enableFeedback: false,
         elevation: 0,
         backgroundColor: Color(0xffFAFAFA),
         items: <BottomNavigationBarItem>[
@@ -63,7 +64,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       Iconsax.cards5,
                       color: Color(0xff02003D),
                     ),
-                  )
+                  )   
                 : Padding(
                     padding: const EdgeInsets.only(bottom: 4),
                     child: Icon(

@@ -1,14 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:one_wallet/OnboardingProcess/splash_screen.dart';
-import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:one_wallet/database/database.dart';
-import 'package:one_wallet/provider/wallet_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

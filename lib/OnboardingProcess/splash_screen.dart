@@ -25,7 +25,10 @@ class _SplashScreenState extends State<SplashScreen> {
         MaterialPageRoute(builder: (context) => BottomNavigationScreen()));
   }
 
-                    
+
+
+  
+                                               
 
   @override
   Widget build(BuildContext context) {
