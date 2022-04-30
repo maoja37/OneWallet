@@ -4,14 +4,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class UpdateUsernameScreen extends StatelessWidget {
+class UpdateUsernameScreen extends StatefulWidget {
   UpdateUsernameScreen({Key? key}) : super(key: key);
 
+  @override
+  State<UpdateUsernameScreen> createState() => _UpdateUsernameScreenState();
+}
 
+class _UpdateUsernameScreenState extends State<UpdateUsernameScreen> {
   final TextEditingController userNameEditingController = TextEditingController();
 
   final user = FirebaseAuth.instance.currentUser;
+
   final formKey = GlobalKey<FormState>();
+
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +39,13 @@ class UpdateUsernameScreen extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      IconButton(
-                        icon: Icon(CupertinoIcons.arrow_left, color: Color(0xff292D32), size: 18,),
-                        onPressed: () => Navigator.of(context).pop(),
-                      ),
+                       InkWell( onTap: () => Navigator.of(context).pop(),  child: Icon(CupertinoIcons.arrow_left, color: Color(0xff292D32), size: 18,)),
+                       
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.192,
                       ),
                       Text(
-                        'What is your name',
+                        'What is your First Name?',
                         style: TextStyle(
                           fontFamily: 'SF-Pro',
                           fontSize: 16,
@@ -55,6 +60,18 @@ class UpdateUsernameScreen extends StatelessWidget {
                   TextFormField(
                     keyboardType: TextInputType.text,
                     controller: userNameEditingController,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your name';
+                      }
+                      if(value.length > 17) {
+                        return 'Please enter a name less than 17 characters';
+                      }
+                      if(value.contains(' ')) {
+                        return 'Please enter only First name ';
+                      }
+                      return null;
+                    },
             
                     decoration: InputDecoration(
                         filled: true,
@@ -72,15 +89,24 @@ class UpdateUsernameScreen extends StatelessWidget {
                   SizedBox(height: 56,),
                   MaterialButton(
                     onPressed: ()  async {
-                      String stuff = userNameEditingController.text;
-            
+                          String stuff = userNameEditingController.text;
+                      if(formKey.currentState!.validate()) {
+                        setState(() {
+                          loading = true;
+                        });
                       
-                        await user?.updateDisplayName(stuff).then((value) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Name Updated'))));
+                        await user?.updateDisplayName(stuff).then(
+                          (value) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Name Updated')))).catchError((error) => ScaffoldMessenger.of(formKey.currentState!.context).showSnackBar(SnackBar(content: Text('Error Updating Name')))).whenComplete(() {});
 
                         
-                      
+                      setState(() {
+                        loading = false;
+                      });
             
                        Navigator.of(context).pop();
+                      }
+                      
+
                     },
                     color: Color(0xff02003D),
                     minWidth: double.infinity,           
@@ -88,7 +114,15 @@ class UpdateUsernameScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(24),
                     ),
                     padding: EdgeInsets.symmetric(vertical: 18),
-                    child: Text(
+                    child:  loading
+                        ? SizedBox(
+                            height: 11,
+                            width: 11,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ))
+                        :  Text(
                       'Update Name',
                       style: TextStyle(
                         fontFamily: 'SF-Pro',

@@ -8,10 +8,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:one_wallet/HomeSection/bottom_navigation.dart';
-import 'package:one_wallet/HomeSection/my_cards_screen.dart';
 import 'package:one_wallet/OnboardingProcess/sign_up_screen.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:google_fonts/google_fonts.dart';
+//import fluttertoast package
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'sign_up_screen.dart';
 
@@ -31,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _forgotPasswordEmailController =
       TextEditingController();
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 20,
                   ),
-                  TextFormField(                                                                                  
+                  TextFormField(
                     controller: _passwordController,
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -157,6 +157,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
                         try {
+                          setState(() {
+                            loading = true;
+                          });
                           await FirebaseAuth.instance
                               .signInWithEmailAndPassword(
                                   email: _emailController.text,
@@ -171,6 +174,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                         } on FirebaseAuthException catch (e) {
                           print(e);
+                          setState(() {
+                            loading = false;
+                            hasError = true;
+                          });
                           if (e.code == 'invalid-email') {
                             ScaffoldMessenger.of(formKey.currentState!.context)
                                 .showSnackBar(SnackBar(
@@ -206,13 +213,21 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(24),
                     ),
                     padding: EdgeInsets.symmetric(vertical: 18),
-                    child: Text(
-                      'Login',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500),
-                    ),
+                    child: loading
+                        ? SizedBox(
+                            height: 11,
+                            width: 11,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ))
+                        : Text(
+                            'Login',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                          ),
                   ),
                   SizedBox(
                     height: 37,
@@ -403,10 +418,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       MaterialButton(
                         onPressed: () async {
                           if (_forgotPasswordEmailController.text.isEmpty) {
-                            ScaffoldMessenger.of(formKey.currentState!.context)
-                                .showSnackBar(SnackBar(
-                              content: Text('There is no email entered'),
-                            ));
+                            Fluttertoast.showToast(
+                              msg: 'There is no email entered',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                            );
                           } else {
                             try {
                               await FirebaseAuth.instance

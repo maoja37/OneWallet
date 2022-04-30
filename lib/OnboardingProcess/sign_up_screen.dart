@@ -21,6 +21,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
+
+  bool loading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -158,6 +160,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         try {
+                          setState(() {
+                            loading = true;
+                          });
                           await FirebaseAuth.instance
                               .createUserWithEmailAndPassword(
                                   email: _emailController.text,
@@ -168,25 +173,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               MaterialPageRoute(
                                   builder: (context) => LoginScreen()));
                         } on FirebaseAuthException catch (e) {
-                          print('$e');
+                          setState(() {
+                            loading = false;
+                          });
                           if(e.code == 'weak-password'){
-                            
-                            Scaffold.of(_formKey.currentState!.context).showSnackBar(SnackBar(
+                            ScaffoldMessenger.of(_formKey.currentState!.context).showSnackBar(SnackBar(
                               content: Text('Password is too weak'),
                             ));
                           }
                           else if(e.code == 'email-already-in-use'){
-                            Scaffold.of(_formKey.currentState!.context).showSnackBar(SnackBar(
+                            ScaffoldMessenger.of(_formKey.currentState!.context).showSnackBar(SnackBar(
                               content: Text('Email already in use'),
                             ));
                           }
                           else if(e.code == 'network-request-failed'){
-                              Scaffold.of(_formKey.currentState!.context).showSnackBar(SnackBar(
+                              ScaffoldMessenger.of(_formKey.currentState!.context).showSnackBar(SnackBar(
                               content: Text('There was a network error'),
                             ));
                           }
                           else{ 
-                            Scaffold.of(_formKey.currentState!.context).showSnackBar(SnackBar(
+                            ScaffoldMessenger.of(_formKey.currentState!.context).showSnackBar(SnackBar(
                               content: Text('Something went wrong'),
                             ));
                           
@@ -206,7 +212,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       borderRadius: BorderRadius.circular(24),
                     ),
                     padding: EdgeInsets.symmetric(vertical: 18),
-                    child: Text(
+                    child:  loading
+                        ? SizedBox(
+                            height: 11,
+                            width: 11,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ))
+                        :  Text(
                       'Create account',
                       style: TextStyle(
                         color: Colors.white,
