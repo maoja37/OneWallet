@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_full_hex_values_for_flutter_colors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:one_wallet/ProfileSection/update_username.dart';
 
 import 'change_password_screen.dart';
 
@@ -16,6 +18,8 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool _toggled = false;
+
+  final  currentUser = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -60,17 +64,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Image.asset('assets/profile_picture.png'),
                     ),
                     title: Text(
-                      'Jenny wilson',
+                      currentUser != null && currentUser!.displayName != null ? currentUser!.displayName! :'Jenny wilson',
                       style: TextStyle(
                         fontFamily: 'SF-Pro',
                         fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w500,                                                                          
                         color: Colors.white,
-                      ),
+                      ),                                                             
                     ),
-                    subtitle: Text('jennywilson@gmail.com',
+                    subtitle: Text(  currentUser != null? currentUser!.email!: 'johndoe@gmail.com',
                         style: TextStyle(
-                          fontFamily: 'SF-Pro',
+                          fontFamily: 'SF-Pro', 
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
                           color: Color(0xffAAA8BD),
@@ -207,30 +211,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
               SizedBox(height: 15),
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: CircleAvatar(
-                  radius: 24,
-                  backgroundColor: Colors.white,
-                  child: Icon(Iconsax.info_circle, size: 16, color: Color(0xffAAA8BD),)
-                ),
-                title: Text(
-                  'Help',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 13,
-                    color: Color(0xff0B0B0B),
+              GestureDetector(
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => UpdateUsernameScreen(),
+                  )),
+                child: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: CircleAvatar(
+                    radius: 24,
+                    backgroundColor: Colors.white,
+                    child: Icon(Iconsax.info_circle, size: 16, color: Color(0xffAAA8BD),)
                   ),
-                ),
-                trailing: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
+                  title: Text(
+                    'Help',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 13,
+                      color: Color(0xff0B0B0B),
+                    ),
                   ),
-                  child: Icon(CupertinoIcons.right_chevron,
-                      color: Color(0xffAAA8BD)),
+                  trailing: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Icon(CupertinoIcons.right_chevron,
+                        color: Color(0xffAAA8BD)),
+                  ),
                 ),
               ),
             ],

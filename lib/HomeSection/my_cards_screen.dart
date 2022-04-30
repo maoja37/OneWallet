@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,6 +20,11 @@ class MyCards extends StatefulWidget {
 
 
 class _MyCardsState extends State<MyCards> {
+
+ final  currentUser = FirebaseAuth.instance.currentUser;
+
+
+
   String sfpro = 'SF-Pro';
 
   late AppDatabase database;
@@ -70,7 +76,7 @@ class _MyCardsState extends State<MyCards> {
                               ),
                               children: [
                                 TextSpan(
-                                  text: 'Peter',
+                                  text: currentUser != null? currentUser!.displayName : 'User',
                                   style: GoogleFonts.inter(
                                       color: Colors.white,
                                       fontSize: 20,

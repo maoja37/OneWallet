@@ -42,6 +42,7 @@ class OnboardingScreen extends StatelessWidget {
                 'Manage all your cards ',
                 style: TextStyle(
                     fontWeight: FontWeight.w700,
+                    fontFamily: 'SF-Pro',
                     fontSize: 28,
                     color: Colors.white),
               ),
@@ -59,6 +60,7 @@ class OnboardingScreen extends StatelessWidget {
                       height: 1.5,
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
+                      fontFamily: 'SF-Pro',
                       color: Color(0xffAAA8BD)),
                 ),
               ),

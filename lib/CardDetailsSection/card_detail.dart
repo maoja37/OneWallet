@@ -145,7 +145,7 @@ class _CardDetailsState extends State<CardDetails> {
                             ]));
                 _isDeleted ? database.deleteCard(widget.cardModel) : null;
 
-                Navigator.pop(context);
+                Navigator.pop(context);                                      
               },
                 child: ListTile(
                   contentPadding: EdgeInsets.only(left: 20),
