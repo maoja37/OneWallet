@@ -25,11 +25,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       backgroundColor: Color(0xffFAFAFA),
       body: SingleChildScrollView(
         child: Padding(
-            padding: EdgeInsets.symmetric(
+            padding: EdgeInsets.symmetric(                            
               horizontal: 24,
             ),
             child: Form(
-              key: formKey,
+              key: formKey,                                                                                                                                                  
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
