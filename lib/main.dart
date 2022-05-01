@@ -19,13 +19,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    //this loads the onboarding image before app loads to reduce lag effect
     precacheImage(AssetImage('assets/onboarding_card.png'), context);
+    //this loads the no card illustration before app loads to reduce lag effect
     precachePicture(
         ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
             'assets/no_card_available_illustration.svg'),
         context);
     return Provider(
+      //provider here is connected to the appdatabase created using drift a.k.a moor
       create: (_) => AppDatabase(),
+      //this widget was created to be able to click anywhere on the screen of the app to remove keyboard
       child: DismissKeyboard(
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -38,7 +42,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
+                          
 class DismissKeyboard extends StatelessWidget {
   final Widget child;
   const DismissKeyboard({Key? key, required this.child}) : super(key: key);
