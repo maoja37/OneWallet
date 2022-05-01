@@ -8,26 +8,30 @@ class NoCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SvgPicture.asset(
-            'assets/no_card_available_illustration.svg',
-          ),
-          SizedBox(height: 30),
-          Text(
-            'You have no card in your wallet',
-            style: TextStyle(
-              fontFamily: 'SF-Pro',
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-              color: Color(0xff505780),
+
+    //this is the  widget that shows in case if there's no card available in database
+    return Center(
+      child: Container(
+        alignment: Alignment.center,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              'assets/no_card_available_illustration.svg',
             ),
-          ),
-        ],
+            SizedBox(height: 30),
+            Text(
+              'You have no card in your wallet',
+              style: TextStyle(
+                fontFamily: 'SF-Pro',
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: Color(0xff505780),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

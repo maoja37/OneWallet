@@ -6,6 +6,7 @@ import 'package:one_wallet/HomeSection/my_cards_screen.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:one_wallet/ProfileSection/settings_screen.dart';
+import 'package:page_transition/page_transition.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
   const BottomNavigationScreen({Key? key}) : super(key: key);
@@ -15,12 +16,13 @@ class BottomNavigationScreen extends StatefulWidget {
 }
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
-  List<Widget> _screens = [
-    MyCards(),
-    SettingsScreen()
-  ];
+  //this stores the list of screen that can be navigated to
+  List<Widget> _screens = [MyCards(), SettingsScreen()];
+
+  //used to check the current screen
   int _selectedIndex = 0;
 
+//used to set the current screen
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -38,7 +40,10 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         child: FittedBox(
           child: FloatingActionButton(
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddCardScreen()));
+              Navigator.of(context).push(PageTransition(
+                  child: AddCardScreen(),
+                  type: PageTransitionType.bottomToTop,
+                  duration: Duration(milliseconds: 500)));
             },
             child: Icon(
               Iconsax.add,
@@ -49,7 +54,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomNavigationBar( 
+      bottomNavigationBar: BottomNavigationBar(
         enableFeedback: false,
         elevation: 0,
         backgroundColor: Color(0xffFAFAFA),
@@ -59,12 +64,11 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
             icon: _selectedIndex == 0
                 ? Padding(
                     padding: const EdgeInsets.only(bottom: 4),
-                    child:
-                        Icon(
+                    child: Icon(
                       Iconsax.cards5,
                       color: Color(0xff02003D),
                     ),
-                  )   
+                  )
                 : Padding(
                     padding: const EdgeInsets.only(bottom: 4),
                     child: Icon(
@@ -78,6 +82,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
             icon: _selectedIndex == 1
                 ? Padding(
                     padding: const EdgeInsets.only(bottom: 4),
+                    //i couldnt use the Iconsax.setting5 bold icon here because it has a padding bug and its not my problem to solve
                     child: SvgPicture.asset(
                         'assets/bottom_navbar_setting_blue.svg'),
                   )

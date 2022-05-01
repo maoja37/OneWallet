@@ -1,5 +1,7 @@
 import 'package:flutter/services.dart';
 
+
+//nevermind this , i did not use this class just forgot to delete it
 class CustomInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
