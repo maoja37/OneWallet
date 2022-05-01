@@ -39,8 +39,9 @@ class _BankListWidgetState extends State<BankListWidget> {
 
   @override
   Widget build(BuildContext context) {
+                                                                                                                             
 
-
+//i surrounded this listview by flexible instead of sizedbox for some weird reason the compiler gave me, so i had to use the flexbit.loose propperty
     return Flexible(
       fit: FlexFit.loose,
       child: ListView.separated(
@@ -89,6 +90,8 @@ class _BankListWidgetState extends State<BankListWidget> {
     });
   }
 
+
+//this method is used to check if authenticate the user using fingerprint before showing card details
   Future<void> _authenticate(BuildContext context, int index) async {
     bool authenticated = false;
     try {

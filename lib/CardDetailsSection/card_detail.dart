@@ -11,6 +11,7 @@ import 'package:one_wallet/provider/wallet_provider.dart';
 import 'package:one_wallet/widgets/dummy_card_widget.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class CardDetails extends StatefulWidget {
@@ -52,6 +53,7 @@ class _CardDetailsState extends State<CardDetails> {
               ),
               SizedBox(height: 24),
               GestureDetector(
+                //this function copies only the card number
                 onTap: () {
                   Clipboard.setData(
                           ClipboardData(text: widget.cardModel.cardNumber))
@@ -86,9 +88,7 @@ class _CardDetailsState extends State<CardDetails> {
               SizedBox(height: 4),
               GestureDetector(
                 onTap: () async {
-                  var res = await Navigator.of(context).push(MaterialPageRoute(
-                      builder: (builder) =>
-                          EditCardScreen(cardModel: widget.cardModel)));
+                  var res = await Navigator.of(context).push(PageTransition(child: EditCardScreen(cardModel: widget.cardModel), type: PageTransitionType.rightToLeft)     );
                   if (res != null && res == true) {
                     setState(() {});
                     print(res.toString());

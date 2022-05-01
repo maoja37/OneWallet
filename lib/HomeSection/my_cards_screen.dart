@@ -7,9 +7,8 @@ import 'package:one_wallet/AddCardSection/add_card_screen.dart';
 import 'package:one_wallet/database/database.dart';
 import 'package:one_wallet/widgets/bank_list_widget.dart';
 import 'package:one_wallet/widgets/no_card_available_widget.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-
-
 
 class MyCards extends StatefulWidget {
   const MyCards({Key? key}) : super(key: key);
@@ -18,19 +17,18 @@ class MyCards extends StatefulWidget {
   State<MyCards> createState() => _MyCardsState();
 }
 
-
 class _MyCardsState extends State<MyCards> {
+  //this is just used to get firebaseuser, it can return a value or null
+  final currentUser = FirebaseAuth.instance.currentUser;
 
- final  currentUser = FirebaseAuth.instance.currentUser;
-
-
-
+//i created this string so i dont have to be typing it everytime i want to style a text
   String sfpro = 'SF-Pro';
 
+  // this is used to get database from drift a.k.a moor
   late AppDatabase database;
   @override
   Widget build(BuildContext context) {
-    
+    //gets the database from the provider
     database = Provider.of<AppDatabase>(context);
     return Scaffold(
       backgroundColor: Color(0xffFAFAFA),
@@ -48,6 +46,7 @@ class _MyCardsState extends State<MyCards> {
                 height: 34,
               ),
               SizedBox(height: 40),
+              //this is the widget that shows the man holding the cofee and name of the user
               Stack(
                 clipBehavior: Clip.none,
                 children: [
@@ -76,7 +75,9 @@ class _MyCardsState extends State<MyCards> {
                               ),
                               children: [
                                 TextSpan(
-                                  text: currentUser != null? currentUser!.displayName : 'User',
+                                  text: currentUser != null
+                                      ? currentUser!.displayName
+                                      : 'User',
                                   style: GoogleFonts.inter(
                                       color: Colors.white,
                                       fontSize: 20,
@@ -98,11 +99,11 @@ class _MyCardsState extends State<MyCards> {
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => AddCardScreen(),
-                              ),
-                            );
+                                context,
+                                PageTransition(
+                                    child: AddCardScreen(),
+                                    type: PageTransitionType.bottomToTop,
+                                    duration: Duration(milliseconds: 500)));
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(
@@ -155,16 +156,20 @@ class _MyCardsState extends State<MyCards> {
                           fontWeight: FontWeight.w400))
                 ],
               ),
+
+              //this streambuilder is used to check the list of card data in the database and update the widgets in real time
               StreamBuilder<List<CardData>>(
                 stream: _watchCards(),
                 builder: (BuildContext context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator(),);
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
                   } else if (snapshot.connectionState ==
                           ConnectionState.active ||
                       snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.hasError) {
-                      return const Text('There was an error');
+                      return Center(child: const Text('There was an error'));
                     } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                       return BankListWidget(cardList: snapshot.data!);
                     } else {

@@ -52,6 +52,7 @@ class OnboardingScreen extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24),
+              //this text was wrapped by container for automatic allignment
               child: Container(
                 child: Text(                                                                                                                                                                                              
                   'Hold and manage all your card information safely, on one platform.',

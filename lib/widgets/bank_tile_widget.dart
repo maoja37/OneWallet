@@ -2,11 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:one_wallet/database/database.dart';
-import 'package:one_wallet/models/card_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:one_wallet/provider/wallet_provider.dart';
 import 'package:provider/provider.dart';
 
 class BankTile extends StatelessWidget {
@@ -14,11 +12,14 @@ class BankTile extends StatelessWidget {
 
   final CardData cardModel;
 
+  //this variable is used to control the delete dialog that pops up
   bool _isDeleted = false;
 
+//this is the datbase from drift also called moor
   late AppDatabase database;
   @override
   Widget build(BuildContext context) {
+    //this initializes thet database using provider
     database = Provider.of<AppDatabase>(context);
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
@@ -54,6 +55,8 @@ class BankTile extends StatelessWidget {
                                     textAlign: TextAlign.end,
                                   ))
                             ]));
+
+                //if the user clicks yes on the dialog the card will delete if not, it wont delete
                 _isDeleted ? database.deleteCard(cardModel) : null;
               },
 
@@ -102,3 +105,4 @@ class BankTile extends StatelessWidget {
     );
   }
 }
+    

@@ -16,12 +16,15 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  //this key is used for form validation
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
+//this controllers are used to get the values from the appropriate text fields
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
+  //this boolean is used to check if the user has clicked on the sign up button and know wether to show CircularProgressIndicator or not
   bool loading = false;
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 children: [
                   SvgPicture.asset(
-                    'assets/one_wallet_logo.svg',
+                    'assets/one_wallet_logo.svg',                         
                     width: 56,
                     height: 56,
                   ),
@@ -159,7 +162,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   MaterialButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
+
                         try {
+                          //when this button is pressed the loading variable is set to true and the CircularProgressIndicator is shown
                           setState(() {
                             loading = true;
                           });
@@ -173,6 +178,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               MaterialPageRoute(
                                   builder: (context) => LoginScreen()));
                         } on FirebaseAuthException catch (e) {
+                          //when the exception is caught the loading variable is set to false and the CircularProgressIndicator is hidden
                           setState(() {
                             loading = false;
                           });
@@ -249,6 +255,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
                             ),
+                            //this takes the user to the login screen when the text is clicked
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 Navigator.of(context).push(

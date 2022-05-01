@@ -14,10 +14,14 @@ class DummyCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
                 children: [
+
+                  //this is the card background
                   SvgPicture.asset(
                     'assets/big_card_detail.svg',
                     width: MediaQuery.of(context).size.width,
                   ),
+
+                  //this contains all card details like card number, card name, cvv etc
                   Positioned(
                       top: 38,
                       left: 24,

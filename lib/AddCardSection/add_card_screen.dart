@@ -18,6 +18,8 @@ class AddCardScreen extends StatefulWidget {
 }
 
 class _AddCardScreenState extends State<AddCardScreen> {
+
+  //this valriable is used to validate the forms in the screen
   final _formKey = GlobalKey<FormState>();
 
   //this variables are controllers attached to Form Fields to monitor them
@@ -34,7 +36,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
   String cardHolderName = '';
   String cvvCode = '';
 
-  //use this to keep track of when the form is submitted
+  //use this to keep track of when the form is submitted for autovalidate for the individual forms
   bool _submitted = false;
 
   late AppDatabase database;
@@ -90,6 +92,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   ],
                 ),
                 SizedBox(height: 28),
+                //fed the dummy card dummy values here
                 DummyCardWidget(
                   cardModel: CardData(
                       id: 1,
@@ -284,6 +287,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
     );
   }
 
+//this is the dialog that shows after the user adds new card
   Future<dynamic> _showCompletedDialog(BuildContext context) {
     return showDialog(
       context: context,

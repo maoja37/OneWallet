@@ -20,12 +20,12 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
+  //this function is used to navigate to the appropriate screen after a period of time
   _navigateToHome() async {
     await Future.delayed(Duration(milliseconds: 7000), () {});
 
+  //this module is used to check if the user is logged in or not
      User? user =  FirebaseAuth.instance.currentUser;
-
-     print(user);
      if(user != null){
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavigationScreen()));
      } else {

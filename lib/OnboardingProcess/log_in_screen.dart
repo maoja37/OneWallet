@@ -9,12 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:one_wallet/HomeSection/bottom_navigation.dart';
 import 'package:one_wallet/OnboardingProcess/sign_up_screen.dart';
-//import fluttertoast package
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'sign_up_screen.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -22,14 +23,17 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   // ignore: close_sinks
 
-  bool hasError = false;
-
+  
+  //this key is used to validate the forms
   final formKey = GlobalKey<FormState>();
 
+//this controllers are used to get the values from the appropriate text fields
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _forgotPasswordEmailController =
       TextEditingController();
+
+  //this boolean is used to check if the user has clicked on the sign up button and know wether to show CircularProgressIndicator or not
   bool loading = false;
 
   @override
@@ -155,8 +159,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   MaterialButton(
                     onPressed: () async {
+                      //this conditonal checks if the form is valid for submission or not and only then does it try to login the user
                       if (formKey.currentState!.validate()) {
                         try {
+                          //when this button is pressed the loading variable is set to true and the CircularProgressIndicator is shown
                           setState(() {
                             loading = true;
                           });
@@ -164,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               .signInWithEmailAndPassword(
                                   email: _emailController.text,
                                   password: _passwordController.text);
-
+                          //this pushes the user to the main page and removes all screens in the stack before that
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
@@ -173,10 +179,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             (Route<dynamic> route) => false,
                           );
                         } on FirebaseAuthException catch (e) {
-                          print(e);
+
+                          //when the exception is caught the loading variable is set to false and the CircularProgressIndicator is hidden
                           setState(() {
                             loading = false;
-                            hasError = true;
                           });
                           if (e.code == 'invalid-email') {
                             ScaffoldMessenger.of(formKey.currentState!.context)
@@ -228,18 +234,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500),
                           ),
-                  ),
-                  SizedBox(
-                    height: 37,
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: SvgPicture.asset(
-                      'assets/fingerpint.svg',
-                      width: 45,
-                      height: 49,
-                    ),
-                  ),
+                  ), 
                   SizedBox(
                     height: 38,
                   ),
@@ -278,64 +273,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // void _showFingerprintSheet(BuildContext context) {
-  //   showFlexibleBottomSheet(
-  //     minHeight: 0,
-  //     initHeight: 0.412,
-  //     maxHeight: 0.412,
-  //     context: context,
-  //     builder: (context, controller, offset) {
-  //       return Material(
-  //         borderRadius: BorderRadius.only(
-  //           topLeft: Radius.circular(32),
-  //           topRight: Radius.circular(32),
-  //         ),
-  //         child: Container(
-  //           decoration: const BoxDecoration(
-  //             color: Color(0xFFFFFFFF),
-  //             borderRadius: BorderRadius.only(
-  //               topLeft: Radius.circular(32),
-  //               topRight: Radius.circular(32),
-  //             ),
-  //           ),
-  //           child: ListView(
-  //             controller: controller,
-  //             children: [
-  //               Padding(
-  //                 padding: EdgeInsets.symmetric(horizontal: 24),
-  //                 child: Column(
-  //                   crossAxisAlignment: CrossAxisAlignment.center,
-  //                   children: [
-  //                     SizedBox(
-  //                       height: 32,
-  //                     ),
-  //                     SvgPicture.asset('assets/Rectangle.svg'),
-  //                     SizedBox(
-  //                       height: MediaQuery.of(context).size.height * 0.080,
-  //                     ),
-  //                     SvgPicture.asset('assets/fingerprint_login.svg'),
-  //                     SizedBox(
-  //                       height: 32,
-  //                     ),
-  //                     Text(
-  //                       'Touch ID sensor to sign in',
-  //                       style: TextStyle(
-  //                         fontFamily: 'SF-Pro',
-  //                         fontSize: 16,
-  //                         fontWeight: FontWeight.w500,
-  //                         color: Color(0xff02003D),
-  //                       ),
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
+
 
   void _showSheet(BuildContext context) {
     showFlexibleBottomSheet(
