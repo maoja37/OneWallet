@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+//  prefer_const_literals_to_create_immutables
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -33,34 +33,34 @@ class _MyCardsState extends State<MyCards> {
     //gets the database from the provider
     database = Provider.of<AppDatabase>(context);
     return Scaffold(
-      backgroundColor: Color(0xffFAFAFA),
+      backgroundColor:const  Color(0xffFAFAFA),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: 76),
+              const SizedBox(height: 76),
               SvgPicture.asset(
                 'assets/onboarding_screen_svg_black.svg',
                 width: 154,
                 height: 34,
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               //this is the widget that shows the man holding the cofee and name of the user
               Stack(
                 clipBehavior: Clip.none,
                 children: [
                   Container(
-                    padding: EdgeInsets.only(
+                    padding:const  EdgeInsets.only(
                       left: 24,
                       top: 36,
                     ),
                     width: double.infinity,
                     height: 148,
                     decoration: BoxDecoration(
-                      color: Color(0xff02003D),
+                      color: const Color(0xff02003D),
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Column(
@@ -81,7 +81,6 @@ class _MyCardsState extends State<MyCards> {
                             ]),
                             AnimatedTextKit(
                               totalRepeatCount: 2,
-                              pause: Duration(milliseconds: 2000),
                               animatedTexts: [
                               WavyAnimatedText(
                                 currentUser != null
@@ -96,57 +95,37 @@ class _MyCardsState extends State<MyCards> {
                             ])
                           ],
                         ),
-                        // RichText(
-                        //   text: TextSpan(
-                        //       text: 'Hi ',
-                        //       style: TextStyle(
-                        //         color: Colors.white,
-                        //         fontFamily: sfpro,
-                        //         fontSize: 20,
-                        //         fontWeight: FontWeight.w500,
-                        //       ),
-                        //       children: [
-                        //         TextSpan(
-                        //           text: currentUser != null
-                        //               ? currentUser!.displayName!
-                        //               : 'User',
-                        //           style: GoogleFonts.inter(
-                        //               color: Colors.white,
-                        //               fontSize: 20,
-                        //               fontWeight: FontWeight.w700),
-                        //         )
-                        //       ]),
-                        // ),
-                        SizedBox(height: 4),
+                        
+                        const SizedBox(height: 4),
                         Text(
                           'Welcome back',
                           style: TextStyle(
-                            color: Color(0xffAAA8BD),
+                            color: const Color(0xffAAA8BD),
                             fontFamily: sfpro,
                             fontWeight: FontWeight.w400,
                             fontSize: 12,
                           ),
                         ),
-                        SizedBox(height: 16),
+                       const  SizedBox(height: 16),
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
                                 context,
                                 PageTransition(
-                                    child: AddCardScreen(),
+                                    child: const AddCardScreen(),
                                     type: PageTransitionType.bottomToTop,
-                                    duration: Duration(milliseconds: 500)));
+                                    duration: const Duration(milliseconds: 500)));
                           },
                           child: Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 28, vertical: 12),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
-                              color: Color(0xffFFFFFF).withOpacity(.24),
+                              color: const Color(0xffFFFFFF).withOpacity(.24),
                             ),
                             child: Text('Add Card',
                                 style: TextStyle(
-                                  color: Color(0xffFFFFFF),
+                                  color: const Color(0xffFFFFFF),
                                   fontFamily: sfpro,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12,
@@ -166,8 +145,8 @@ class _MyCardsState extends State<MyCards> {
                       ))
                 ],
               ),
-              SizedBox(
-                height: 48,
+              const SizedBox(
+                height: 48
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -177,14 +156,14 @@ class _MyCardsState extends State<MyCards> {
                     style: TextStyle(
                         fontFamily: sfpro,
                         fontSize: 16,
-                        color: Color(0xff505780),
+                        color: const Color(0xff505780),
                         fontWeight: FontWeight.w400),
                   ),
                   Text('',
                       style: TextStyle(
                           fontFamily: sfpro,
                           fontSize: 14,
-                          color: Color(0xff5F00F8),
+                          color: const Color(0xff5F00F8),
                           fontWeight: FontWeight.w400))
                 ],
               ),
@@ -194,14 +173,14 @@ class _MyCardsState extends State<MyCards> {
                 stream: _watchCards(),
                 builder: (BuildContext context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   } else if (snapshot.connectionState ==
                           ConnectionState.active ||
                       snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.hasError) {
-                      return Center(child: const Text('There was an error'));
+                      return const Center(child:  Text('There was an error'));
                     } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                       return BankListWidget(cardList: snapshot.data!);
                     } else {

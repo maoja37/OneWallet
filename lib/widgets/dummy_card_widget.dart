@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class DummyCardWidget extends StatelessWidget {
   final CardData cardModel;
-  DummyCardWidget({required this.cardModel, Key? key}) : super(key: key);
+  const DummyCardWidget({required this.cardModel, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class DummyCardWidget extends StatelessWidget {
                                 color: Colors.white,
                               ),
                             ),
-                            SizedBox(height: 40),
+                            const SizedBox(height: 40),
                             //create text widget with cardModel.cardNumber and seperate it by 4 digits with space in between
                             Text(
                               cardModel.cardNumber.substring(0, 4) +
@@ -54,7 +54,7 @@ class DummyCardWidget extends StatelessWidget {
                                 color: Colors.white,
                               ),
                             ),
-                            SizedBox(height: 40),
+                            const SizedBox(height: 40),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -69,7 +69,7 @@ class DummyCardWidget extends StatelessWidget {
                                         color: Colors.white,
                                       ),
                                     ),
-                                    SizedBox(height: 6),
+                                    const SizedBox(height: 6),
                                     Text(
                                       cardModel.cardHolderName,
                                       style: GoogleFonts.sourceSansPro(
@@ -91,7 +91,7 @@ class DummyCardWidget extends StatelessWidget {
                                         color: Colors.white,
                                       ),
                                     ),
-                                    SizedBox(height: 6),
+                                    const SizedBox(height: 6),
                                     Text(
                                       cardModel.expiryDate,
                                       style: GoogleFonts.sourceSansPro(
@@ -113,7 +113,7 @@ class DummyCardWidget extends StatelessWidget {
                                         color: Colors.white,
                                       ),
                                     ),
-                                    SizedBox(height: 6),
+                                    const SizedBox(height: 6),
                                     Text(
                                       cardModel.cvvCode,
                                       style: GoogleFonts.sourceSansPro(

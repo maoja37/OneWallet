@@ -1,4 +1,4 @@
-// ignore_for_file: use_full_hex_values_for_flutter_colors, prefer_const_constructors, prefer_const_literals_to_create_immutables
+//  prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:one_wallet/OnboardingProcess/sign_up_screen.dart';
@@ -11,32 +11,32 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(
-        0x0B0B0B,
+      backgroundColor: const Color(
+        0xff0B0B0B,
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 24, top: 76),
+              padding: const EdgeInsets.only(left: 24, top: 76),
               child: SvgPicture.asset(
                 'assets/onboarding_screen_svg_white.svg',
                 height: 34,
                 width: 154,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 11,
             ),
             Align(
               alignment: Alignment.centerRight,
               child: Image.asset('assets/onboarding_card.png'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 66,
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 24),
               child: Text(
                 'Manage all your cards ',
@@ -47,14 +47,14 @@ class OnboardingScreen extends StatelessWidget {
                     color: Colors.white),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               //this text was wrapped by container for automatic allignment
               child: Container(
-                child: Text(                                                                                                                                                                                              
+                child: const Text(                                                                                                                                                                                              
                   'Hold and manage all your card information safely, on one platform.',
                   textAlign: TextAlign.start,
                   style: TextStyle(
@@ -66,9 +66,9 @@ class OnboardingScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -76,15 +76,15 @@ class OnboardingScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
-                              builder: (context) => SignUpScreen()),
+                              builder: (context) => const SignUpScreen()),
                           (route) => false);
                     },
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 52, vertical: 16),
-                    child: Text(
+                    padding: const EdgeInsets.symmetric(horizontal: 52, vertical: 16),
+                    child: const Text(
                       'Sign up',
                       style: TextStyle(
                         color: Colors.black,
@@ -96,15 +96,15 @@ class OnboardingScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (builder) => LoginScreen()),
+                                  builder: (builder) => const LoginScreen()),
                             );
                     },
-                    color: Color(0xff32363C),
+                    color: const Color(0xff32363C),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 52, vertical: 16),
-                    child: Text(
+                    padding: const EdgeInsets.symmetric(horizontal: 52, vertical: 16),
+                    child: const Text(
                       'Login',
                       style: TextStyle(
                         color: Colors.white,

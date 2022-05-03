@@ -1,6 +1,4 @@
-// ignore_for_file: prefer_const_constructors
 
-import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -44,10 +42,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     width: 56,
                     height: 56,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
-                  Text(
+                  const Text(
                     'Create account',
                     style: TextStyle(
                         fontWeight: FontWeight.w700,
@@ -55,10 +53,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         fontSize: 24,
                         color: Colors.black),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 6,
                   ),
-                  Text(
+                  const Text(
                     'Sign up with the provided \nmeans to continue',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -68,7 +66,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       color: Color(0xff505780),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 56,
                   ),
                   TextFormField(
@@ -87,18 +85,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         filled: true,
                         labelText: 'Email Address',
                         labelStyle:
-                            TextStyle(
+                            const TextStyle(
                             color: Color(0xffAAA8BD),
                             fontSize: 14,
                             fontFamily: 'SF-Pro',
                             fontWeight: FontWeight.w400),
-                        floatingLabelStyle: TextStyle(color: Color(0xff02003D)),
-                        fillColor: Color(0xffFAFBFF),
+                        floatingLabelStyle: const TextStyle(color: Color(0xff02003D)),
+                        fillColor: const Color(0xffFAFBFF),
                         border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(16))),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
@@ -115,18 +113,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         filled: true,
                         labelText: 'Enter Password',
                         labelStyle:
-                            TextStyle(
+                            const TextStyle(
                             color: Color(0xffAAA8BD),
                             fontSize: 14,
                             fontFamily: 'SF-Pro',
                             fontWeight: FontWeight.w400),
-                        floatingLabelStyle: TextStyle(color: Color(0xff02003D)),
-                        fillColor: Color(0xffFAFBFF),
+                        floatingLabelStyle: const TextStyle(color: Color(0xff02003D)),
+                        fillColor: const Color(0xffFAFBFF),
                         border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(16))),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
@@ -145,18 +143,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     decoration: InputDecoration(
                         filled: true,
                         labelText: 'Confirm Password',
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                             color: Color(0xffAAA8BD),
                             fontSize: 14,
                             fontFamily: 'SF-Pro',
                             fontWeight: FontWeight.w400),
-                        floatingLabelStyle: TextStyle(color: Color(0xff02003D)),
-                        fillColor: Color(0xffFAFBFF),
+                        floatingLabelStyle: const TextStyle(color: Color(0xff02003D)),
+                        fillColor: const Color(0xffFAFBFF),
                         border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(16))),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   MaterialButton(
@@ -176,29 +174,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => LoginScreen()));
+                                  builder: (context) => const LoginScreen()));
                         } on FirebaseAuthException catch (e) {
                           //when the exception is caught the loading variable is set to false and the CircularProgressIndicator is hidden
                           setState(() {
                             loading = false;
                           });
                           if(e.code == 'weak-password'){
-                            ScaffoldMessenger.of(_formKey.currentState!.context).showSnackBar(SnackBar(
+                            ScaffoldMessenger.of(_formKey.currentState!.context).showSnackBar(const SnackBar(
                               content: Text('Password is too weak'),
                             ));
                           }
                           else if(e.code == 'email-already-in-use'){
-                            ScaffoldMessenger.of(_formKey.currentState!.context).showSnackBar(SnackBar(
+                            ScaffoldMessenger.of(_formKey.currentState!.context).showSnackBar(const SnackBar(
                               content: Text('Email already in use'),
                             ));
                           }
                           else if(e.code == 'network-request-failed'){
-                              ScaffoldMessenger.of(_formKey.currentState!.context).showSnackBar(SnackBar(
+                              ScaffoldMessenger.of(_formKey.currentState!.context).showSnackBar(const SnackBar(
                               content: Text('There was a network error'),
                             ));
                           }
                           else{ 
-                            ScaffoldMessenger.of(_formKey.currentState!.context).showSnackBar(SnackBar(
+                            ScaffoldMessenger.of(_formKey.currentState!.context).showSnackBar(const SnackBar(
                               content: Text('Something went wrong'),
                             ));
                           
@@ -212,21 +210,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       }
                     
                     },
-                    color: Color(0xff02003D),
+                    color: const Color(0xff02003D),
                     minWidth: double.infinity,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 18),
+                    padding: const EdgeInsets.symmetric(vertical: 18),
                     child:  loading
-                        ? SizedBox(
+                        ? const SizedBox(
                             height: 11,
                             width: 11,
                             child: CircularProgressIndicator(
                               color: Colors.white,
                               strokeWidth: 2,
                             ))
-                        :  Text(
+                        :  const Text(
                       'Create account',
                       style: TextStyle(
                         color: Colors.white,
@@ -236,13 +234,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 32,
                   ),
                   RichText(
                       text: TextSpan(
                           text: 'Already a User? ',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Color(0xffAAA8BD),
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
@@ -250,7 +248,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           children: [
                         TextSpan(
                             text: 'Log in to your account',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Color(0xff5F00F8),
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -260,7 +258,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ..onTap = () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                      builder: (builder) => LoginScreen()),
+                                      builder: (builder) => const LoginScreen()),
                                 );
                               })
                       ]))

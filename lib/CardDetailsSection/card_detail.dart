@@ -1,13 +1,10 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_literals_to_create_immutables,
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:one_wallet/CardDetailsSection/edit_card_screen.dart';
 import 'package:one_wallet/database/database.dart';
-
-import 'package:one_wallet/models/card_model.dart';
-import 'package:one_wallet/provider/wallet_provider.dart';
 import 'package:one_wallet/widgets/dummy_card_widget.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -31,19 +28,19 @@ class _CardDetailsState extends State<CardDetails> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               IconButton(
                   onPressed: () => Navigator.pop(context),
-                  icon: Icon(
+                  icon: const Icon(
                     CupertinoIcons.arrow_left,
                   )),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               DummyCardWidget(cardModel: widget.cardModel),
-              SizedBox(height: 50),
-              Text(
+              const SizedBox(height: 50),
+              const Text(
                 'Manage card',
                 style: TextStyle(
                     fontFamily: 'SF-Pro',
@@ -51,7 +48,7 @@ class _CardDetailsState extends State<CardDetails> {
                     fontWeight: FontWeight.w500,
                     color: Color(0xff0B0B0B)),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               GestureDetector(
                 //this function copies only the card number
                 onTap: () {
@@ -59,23 +56,23 @@ class _CardDetailsState extends State<CardDetails> {
                           ClipboardData(text: widget.cardModel.cardNumber))
                       .then((value) =>
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
+                            const SnackBar(
                               content: Text('Card number copied to clipboard'),
                               duration: Duration(seconds: 2),
                             ),
                           ));
                 },
                 child: ListTile(
-                  contentPadding: EdgeInsets.only(left: 20),
+                  contentPadding: const EdgeInsets.only(left: 20),
                   leading: SvgPicture.asset('assets/copy_tiny_svg.svg'),
-                  title: Text(
+                  title: const Text(
                     'Copy card details',
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Color(0xff505780),
                     ),
                   ),
-                  subtitle: Text(
+                  subtitle: const Text(
                     'Copy card number, name and expiry date',
                     style: TextStyle(
                       fontSize: 12,
@@ -85,17 +82,16 @@ class _CardDetailsState extends State<CardDetails> {
                   ),
                 ),
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               GestureDetector(
                 onTap: () async {
                   var res = await Navigator.of(context).push(PageTransition(child: EditCardScreen(cardModel: widget.cardModel), type: PageTransitionType.rightToLeft)     );
                   if (res != null && res == true) {
-                    setState(() {});
-                    print(res.toString());
+                    
                     Navigator.pop(context);
                   }
                 },                                                                                                                                                                            
-                child: ListTile(
+                child: const ListTile(
                   contentPadding: EdgeInsets.only(left: 20),
                   leading: Icon(Iconsax.setting_4, color: Color(0xff02003D)),
                   title: Text(
@@ -115,14 +111,14 @@ class _CardDetailsState extends State<CardDetails> {
                   ),
                 ),
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               GestureDetector(
                 onTap: () async {
                 await showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                            title: Text('Delete card'),
-                            content: Text(
+                            title: const Text('Delete card'),
+                            content: const Text(
                                 'Are you sure you want to delete this card?'),
                             actions: [
                               TextButton(
@@ -130,7 +126,7 @@ class _CardDetailsState extends State<CardDetails> {
                                     Navigator.pop(context);
                                     _isDeleted = true;
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     'Yes',
                                     textAlign: TextAlign.end,
                                   )),
@@ -138,7 +134,7 @@ class _CardDetailsState extends State<CardDetails> {
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     'No',
                                     textAlign: TextAlign.end,
                                   ))
@@ -147,7 +143,7 @@ class _CardDetailsState extends State<CardDetails> {
 
                 Navigator.pop(context);                                      
               },
-                child: ListTile(
+                child: const ListTile(
                   contentPadding: EdgeInsets.only(left: 20),
                   leading: Icon(Iconsax.trash, color: Color(0xff02003D)),
                   title: Text(

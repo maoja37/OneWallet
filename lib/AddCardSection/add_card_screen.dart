@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -57,22 +57,22 @@ class _AddCardScreenState extends State<AddCardScreen> {
   Widget build(BuildContext context) {
     database = Provider.of<AppDatabase>(context);
     return Scaffold(
-      backgroundColor: Color(0xffFAFAFA),
+      backgroundColor: const Color(0xffFAFAFA),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 66,
                 ),
                 Row(
                   children: [
                     IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         CupertinoIcons.arrow_left,
                         color: Color(0xff292D32),
                         size: 18,
@@ -80,7 +80,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.2),
-                    Text(
+                    const Text(
                       'Add Card',
                       style: TextStyle(
                         fontFamily: 'SF-Pro',
@@ -91,7 +91,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 28),
+                const SizedBox(height: 28),
                 //fed the dummy card dummy values here
                 DummyCardWidget(
                   cardModel: CardData(
@@ -103,7 +103,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                       cvvCode: '---',
                       cardType: 'master'),
                 ),
-                SizedBox(height: 36),
+                const SizedBox(height: 36),
                 TextFormField(
                   controller: bankNameController,
                   keyboardType: TextInputType.text,
@@ -113,16 +113,16 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   decoration: InputDecoration(
                       filled: true,
                       hintText: 'Bank name',
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                           color: Color(0xffAAA8BD),
                           fontSize: 14,
                           fontWeight: FontWeight.w400),
-                      fillColor: Color(0xffFAFBFF),
+                      fillColor: const Color(0xffFAFBFF),
                       border: OutlineInputBorder(
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(16))),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 TextFormField(
@@ -134,16 +134,16 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   decoration: InputDecoration(
                       filled: true,
                       hintText: 'Card Holder name',
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                           color: Color(0xffAAA8BD),
                           fontSize: 14,
                           fontWeight: FontWeight.w400),
-                      fillColor: Color(0xffFAFBFF),
+                      fillColor: const Color(0xffFAFBFF),
                       border: OutlineInputBorder(
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(16))),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 TextFormField(
@@ -164,16 +164,16 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   decoration: InputDecoration(
                       filled: true,
                       hintText: 'Card Number',
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                           color: Color(0xffAAA8BD),
                           fontSize: 14,
                           fontWeight: FontWeight.w400),
-                      fillColor: Color(0xffFAFBFF),
+                      fillColor: const Color(0xffFAFBFF),
                       border: OutlineInputBorder(
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(16))),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 TextFormField(
@@ -194,16 +194,16 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   decoration: InputDecoration(
                       filled: true,
                       hintText: 'CVV',
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                           color: Color(0xffAAA8BD),
                           fontSize: 14,
                           fontWeight: FontWeight.w400),
-                      fillColor: Color(0xffFAFBFF),
+                      fillColor: const Color(0xffFAFBFF),
                       border: OutlineInputBorder(
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(16))),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 TextFormField(
@@ -228,16 +228,16 @@ class _AddCardScreenState extends State<AddCardScreen> {
                       helperText: 'MM/YY',
                       filled: true,
                       hintText: 'Expiry Date',
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                           color: Color(0xffAAA8BD),
                           fontSize: 14,
                           fontWeight: FontWeight.w400),
-                      fillColor: Color(0xffFAFBFF),
+                      fillColor: const Color(0xffFAFBFF),
                       border: OutlineInputBorder(
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(16))),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 36,
                 ),
                 MaterialButton(
@@ -264,13 +264,13 @@ class _AddCardScreenState extends State<AddCardScreen> {
                       Navigator.of(context).pop();
                     }
                   },
-                  color: Color(0xff02003D),
+                  color: const Color(0xff02003D),
                   minWidth: double.infinity,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 18),
-                  child: Text(
+                  padding: const EdgeInsets.symmetric(vertical: 18),
+                  child: const Text(
                     'Add Card',
                     style: TextStyle(
                         fontFamily: 'SF-Pro',
@@ -300,10 +300,10 @@ class _AddCardScreenState extends State<AddCardScreen> {
           children: [
             Image.asset('assets/dialog_illustration.png',
                 width: 109, height: 109),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
-            Text(
+            const Text(
               'Welldone!',
               style: TextStyle(
                 fontFamily: 'SF-Pro',
@@ -312,10 +312,10 @@ class _AddCardScreenState extends State<AddCardScreen> {
                 color: Color(0xff0B0B0B),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 4,
             ),
-            Text(
+            const Text(
               'You have successfully added\n a card to your wallet',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -325,19 +325,19 @@ class _AddCardScreenState extends State<AddCardScreen> {
                 color: Color(0xffAAA8BD),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 24,
             ),
             MaterialButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              color: Color(0xff02003D),
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 62),
+              color: const Color(0xff02003D),
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 62),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(24),
               ),
-              child: Text('Done',
+              child: const Text('Done',
                   style: TextStyle(
                     fontFamily: 'SF-Pro',
                     fontSize: 14,

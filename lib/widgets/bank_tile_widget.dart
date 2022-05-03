@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+//  prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:one_wallet/database/database.dart';
@@ -26,15 +26,15 @@ class BankTile extends StatelessWidget {
       child: Slidable(
         endActionPane: ActionPane(
           extentRatio: 0.25,
-          motion: ScrollMotion(),
+          motion: const ScrollMotion(),
           children: [
             SlidableAction(
               onPressed: (context) async {
                 await showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                            title: Text('Delete card'),
-                            content: Text(
+                            title: const Text('Delete card'),
+                            content: const Text(
                                 'Are you sure you want to delete this card?'),
                             actions: [
                               TextButton(
@@ -42,7 +42,7 @@ class BankTile extends StatelessWidget {
                                     Navigator.pop(context);
                                     _isDeleted = true;
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     'Yes',
                                     textAlign: TextAlign.end,
                                   )),
@@ -50,7 +50,7 @@ class BankTile extends StatelessWidget {
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     'No',
                                     textAlign: TextAlign.end,
                                   ))
@@ -73,7 +73,7 @@ class BankTile extends StatelessWidget {
   Container buildBankTile() {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -84,7 +84,7 @@ class BankTile extends StatelessWidget {
         contentPadding: EdgeInsets.zero,
         title: Text(
           cardModel.bankName,
-          style: TextStyle(
+          style: const TextStyle(
               fontFamily: 'SF-Pro',
               fontSize: 14,
               fontWeight: FontWeight.w400,
@@ -93,7 +93,7 @@ class BankTile extends StatelessWidget {
         //create subtitle with cardModel.cardNumber that hides the first 4 digits of the number
         subtitle: Text(
           cardModel.cardNumber.replaceRange(0, 4, '****'),
-          style: TextStyle(
+          style: const TextStyle(
               fontFamily: 'SF-Pro',
               fontSize: 14,
               fontWeight: FontWeight.w400,

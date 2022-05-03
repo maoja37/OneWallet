@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_final_fields, prefer_const_literals_to_create_immutables
+//, prefer_final_fields, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:one_wallet/AddCardSection/add_card_screen.dart';
@@ -17,7 +17,7 @@ class BottomNavigationScreen extends StatefulWidget {
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   //this stores the list of screen that can be navigated to
-  List<Widget> _screens = [MyCards(), SettingsScreen()];
+  final List<Widget> _screens = [const MyCards(), SettingsScreen()];
 
   //used to check the current screen
   int _selectedIndex = 0;
@@ -37,22 +37,22 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       body: _screens[_selectedIndex],
       //create a floating action bar with floatingActionButtonLocation center docked and icon : Icons.add
       floatingActionButton: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         height: 56,
         width: 56,
         child: FittedBox(
           child: FloatingActionButton(
             onPressed: () {
               Navigator.of(context).push(PageTransition(
-                  child: AddCardScreen(),
+                  child: const AddCardScreen(),
                   type: PageTransitionType.bottomToTop,
-                  duration: Duration(milliseconds: 600)));
+                  duration: const Duration(milliseconds: 600)));
             },
-            child: Icon(
+            child: const Icon(
               Iconsax.add,
               color: Colors.white,
             ),     
-            backgroundColor: Color(0xff02003D),
+            backgroundColor: const Color(0xff02003D),
           ),
         ),
       ),
@@ -60,23 +60,23 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       bottomNavigationBar: BottomNavigationBar(
         enableFeedback: false,
         elevation: 0,
-        backgroundColor: Color(0xffFAFAFA),
+        backgroundColor: const Color(0xffFAFAFA),
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             label: 'My cards',
             icon: _selectedIndex == 0
-                ? Padding(
-                    padding: const EdgeInsets.only(bottom: 4),
+                ? const Padding(
+                    padding: EdgeInsets.only(bottom: 4),
                     child: Icon(
                       Iconsax.cards5,
                       color: Color(0xff02003D),
                     ),
                   )
-                : Padding(
-                    padding: const EdgeInsets.only(bottom: 4),
-                    child: Icon(
+                : const Padding(
+                    padding: EdgeInsets.only(bottom: 4),
+                    child: const Icon(
                       Iconsax.cards,
-                      color: Color(0xffAAA8BD),
+                      color: const Color(0xffAAA8BD),
                     ),
                   ),
           ),
@@ -89,18 +89,18 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                     child: SvgPicture.asset(
                         'assets/bottom_navbar_setting_blue.svg'),
                   )
-                : Padding(
-                    padding: const EdgeInsets.only(bottom: 4),
+                : const Padding(
+                    padding: EdgeInsets.only(bottom: 4),
                     child: Icon(
                       Iconsax.setting,
-                      color: Color(0xffAAA8BD),
+                      color: const Color(0xffAAA8BD),
                     ),
                   ),
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Color(0xff02003D),
-        unselectedItemColor: Color(0xffAAA8BD),
+        selectedItemColor: const Color(0xff02003D),
+        unselectedItemColor: const Color(0xffAAA8BD),
         onTap: _onItemTapped,
       ),
     );

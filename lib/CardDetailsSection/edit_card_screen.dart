@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +9,9 @@ import 'package:one_wallet/widgets/dummy_card_widget.dart';
 import 'package:provider/provider.dart';
 
 class EditCardScreen extends StatefulWidget {
-  EditCardScreen({required this.cardModel, Key? key}) : super(key: key);
+  const EditCardScreen({required this.cardModel, Key? key}) : super(key: key);
 
-  CardData cardModel;
+  final CardData cardModel;
 
   @override
   State<EditCardScreen> createState() => _EditCardScreenState();
@@ -71,22 +71,22 @@ class _EditCardScreenState extends State<EditCardScreen> {
   Widget build(BuildContext context) {
     _database = Provider.of<AppDatabase>(context);
     return Scaffold(
-      backgroundColor: Color(0xffFAFAFA),
+      backgroundColor: const Color(0xffFAFAFA),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 66,
                 ),
                 Row(
                   children: [
                     IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         CupertinoIcons.arrow_left,
                         color: Color(0xff292D32),
                         size: 18,
@@ -94,7 +94,7 @@ class _EditCardScreenState extends State<EditCardScreen> {
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.2),
-                    Text(
+                    const Text(
                       'Edit Card',
                       style: TextStyle(
                         fontFamily: 'SF-Pro',
@@ -105,7 +105,7 @@ class _EditCardScreenState extends State<EditCardScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 28),
+                const SizedBox(height: 28),
                 DummyCardWidget(
                   cardModel: CardData(
                     id: 1,
@@ -116,7 +116,7 @@ class _EditCardScreenState extends State<EditCardScreen> {
                     cvvCode: widget.cardModel.cvvCode,
                   ),
                 ),
-                SizedBox(height: 36),
+                const SizedBox(height: 36),
                 TextFormField(
                   //initialValue: widget.cardModel.bankName,
                   controller: bankNameController,
@@ -127,16 +127,16 @@ class _EditCardScreenState extends State<EditCardScreen> {
                   decoration: InputDecoration(
                       filled: true,
                       hintText: 'Bank name',
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                           color: Color(0xffAAA8BD),
                           fontSize: 14,
                           fontWeight: FontWeight.w400),
-                      fillColor: Color(0xffFAFBFF),
+                      fillColor: const Color(0xffFAFBFF),
                       border: OutlineInputBorder(
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(16))),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 TextFormField(
@@ -148,16 +148,16 @@ class _EditCardScreenState extends State<EditCardScreen> {
                   decoration: InputDecoration(
                       filled: true,
                       hintText: 'Card Holder name',
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                           color: Color(0xffAAA8BD),
                           fontSize: 14,
                           fontWeight: FontWeight.w400),
-                      fillColor: Color(0xffFAFBFF),
+                      fillColor: const Color(0xffFAFBFF),
                       border: OutlineInputBorder(
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(16))),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 TextFormField(
@@ -178,16 +178,16 @@ class _EditCardScreenState extends State<EditCardScreen> {
                   decoration: InputDecoration(
                       filled: true,
                       hintText: 'Card Number',
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                           color: Color(0xffAAA8BD),
                           fontSize: 14,
                           fontWeight: FontWeight.w400),
-                      fillColor: Color(0xffFAFBFF),
+                      fillColor: const Color(0xffFAFBFF),
                       border: OutlineInputBorder(
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(16))),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 TextFormField(
@@ -208,16 +208,16 @@ class _EditCardScreenState extends State<EditCardScreen> {
                   decoration: InputDecoration(
                       filled: true,
                       hintText: 'CVV',
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                           color: Color(0xffAAA8BD),
                           fontSize: 14,
                           fontWeight: FontWeight.w400),
-                      fillColor: Color(0xffFAFBFF),
+                      fillColor: const Color(0xffFAFBFF),
                       border: OutlineInputBorder(
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(16))),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 TextFormField(
@@ -242,16 +242,16 @@ class _EditCardScreenState extends State<EditCardScreen> {
                       helperText: 'MM/YY',
                       filled: true,
                       hintText: 'Expiry Date',
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                           color: Color(0xffAAA8BD),
                           fontSize: 14,
                           fontWeight: FontWeight.w400),
-                      fillColor: Color(0xffFAFBFF),
+                      fillColor: const Color(0xffFAFBFF),
                       border: OutlineInputBorder(
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(16))),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 36,
                 ),
                 MaterialButton(
@@ -267,15 +267,6 @@ class _EditCardScreenState extends State<EditCardScreen> {
                       cvvCode = cvvController.text;
                       expiryDate = expiryDateController.text;
 
-                      // provider.updateCardModel(
-                      //   widget.cardModel,
-                      //   bankName,
-                      //   cardNumber,
-                      //   expiryDate,
-                      //   cardHolderName,
-                      //   cvvCode,
-                      // );
-
                       _database.updateCard(CardData(
                           id: widget.cardModel.id,
                           bankName: bankName,
@@ -289,13 +280,13 @@ class _EditCardScreenState extends State<EditCardScreen> {
                       Navigator.pop(context,true);
                     }
                   },
-                  color: Color(0xff02003D),
+                  color: const Color(0xff02003D),
                   minWidth: double.infinity,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 18),
-                  child: Text(
+                  padding: const EdgeInsets.symmetric(vertical: 18),
+                  child: const Text(
                     'Save Changes',
                     style: TextStyle(
                         fontFamily: 'SF-Pro',
@@ -324,10 +315,10 @@ class _EditCardScreenState extends State<EditCardScreen> {
           children: [
             Image.asset('assets/dialog_illustration.png',
                 width: 109, height: 109),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
-            Text(
+            const Text(
               'Welldone!',
               style: TextStyle(
                 fontFamily: 'SF-Pro',
@@ -336,10 +327,10 @@ class _EditCardScreenState extends State<EditCardScreen> {
                 color: Color(0xff0B0B0B),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 4,
             ),
-            Text(
+            const Text(
               'You have successfully\nupdated this card details',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -349,19 +340,19 @@ class _EditCardScreenState extends State<EditCardScreen> {
                 color: Color(0xffAAA8BD),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 24,
             ),
             MaterialButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              color: Color(0xff02003D),
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 62),
+              color: const Color(0xff02003D),
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 62),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(24),
               ),
-              child: Text('Done',
+              child: const Text('Done',
                   style: TextStyle(
                     fontFamily: 'SF-Pro',
                     fontSize: 14,

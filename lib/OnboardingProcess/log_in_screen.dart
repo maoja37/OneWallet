@@ -1,6 +1,4 @@
-// ignore_for_file: prefer_const_constructors
 
-import 'dart:async';
 
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -55,10 +53,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 56,
                     height: 56,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
-                  Text(
+                  const Text(
                     'Welcome!',
                     style: TextStyle(
                         fontWeight: FontWeight.w700,
@@ -66,10 +64,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontSize: 24,
                         color: Colors.black),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 6,
                   ),
-                  Text(
+                  const Text(
                     'Hey there, enter your\ndetails to continue',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -79,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: Color(0xff505780),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 56,
                   ),
                   TextFormField(
@@ -97,18 +95,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     decoration: InputDecoration(
                         filled: true,
                         hintText: 'Email Address',
-                        hintStyle: TextStyle(
+                        hintStyle: const TextStyle(
                             color: Color(0xffAAA8BD),
                             fontSize: 14,
                             fontFamily: 'SF-Pro',
                             fontWeight: FontWeight.w400),
-                        floatingLabelStyle: TextStyle(color: Color(0xff02003D)),
-                        fillColor: Color(0xffFAFBFF),
+                        floatingLabelStyle: const TextStyle(color: Color(0xff02003D)),
+                        fillColor: const Color(0xffFAFBFF),
                         border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(16))),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
@@ -124,18 +122,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     decoration: InputDecoration(
                         filled: true,
                         hintText: 'Enter password',
-                        hintStyle: TextStyle(
+                        hintStyle: const TextStyle(
                             color: Color(0xffAAA8BD),
                             fontSize: 14,
                             fontFamily: 'SF-Pro',
                             fontWeight: FontWeight.w400),
-                        floatingLabelStyle: TextStyle(color: Color(0xff02003D)),
-                        fillColor: Color(0xffFAFBFF),
+                        floatingLabelStyle: const TextStyle(color: Color(0xff02003D)),
+                        fillColor: const Color(0xffFAFBFF),
                         border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(16))),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -143,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       GestureDetector(
                         onTap: () => _showSheet(context),
-                        child: Text(
+                        child: const Text(
                           'Forgot password',
                           style: TextStyle(
                             color: Color(0xff5F00F8),
@@ -154,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   MaterialButton(
@@ -177,14 +175,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      BottomNavigationScreen(),
+                                      const BottomNavigationScreen(),
                                 ),
                                 (Route<dynamic> route) => false,
                               );
                             } else {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => UpdateUsernameScreen(),
+                                  builder: (context) => const UpdateUsernameScreen(),
                                 ),
                               );
                             }
@@ -196,48 +194,48 @@ class _LoginScreenState extends State<LoginScreen> {
                           });
                           if (e.code == 'invalid-email') {
                             ScaffoldMessenger.of(formKey.currentState!.context)
-                                .showSnackBar(SnackBar(
+                                .showSnackBar(const SnackBar(
                               content: Text('Please enter valid email'),
                             ));
                           } else if (e.code == 'user-disabled') {
                             ScaffoldMessenger.of(formKey.currentState!.context)
-                                .showSnackBar(SnackBar(
+                                .showSnackBar(const SnackBar(
                               content: Text('User disabled'),
                             ));
                           } else if (e.code == 'wrong-password') {
                             ScaffoldMessenger.of(formKey.currentState!.context)
-                                .showSnackBar(SnackBar(
+                                .showSnackBar(const SnackBar(
                               content: Text('Wrong Password entered'),
                             ));
                           } else if (e.code == 'user-not-found') {
                             ScaffoldMessenger.of(formKey.currentState!.context)
-                                .showSnackBar(SnackBar(
+                                .showSnackBar(const SnackBar(
                               content: Text('User not found'),
                             ));
                           } else {
                             ScaffoldMessenger.of(formKey.currentState!.context)
-                                .showSnackBar(SnackBar(
+                                .showSnackBar(const SnackBar(
                               content: Text('User disabled'),
                             ));
                           }
                         }
                       }
                     },
-                    color: Color(0xff02003D),
+                    color: const Color(0xff02003D),
                     minWidth: double.infinity,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 18),
+                    padding: const EdgeInsets.symmetric(vertical: 18),
                     child: loading
-                        ? SizedBox(
+                        ? const SizedBox(
                             height: 11,
                             width: 11,
                             child: CircularProgressIndicator(
                               color: Colors.white,
                               strokeWidth: 2,
                             ))
-                        : Text(
+                        : const Text(
                             'Login',
                             style: TextStyle(
                                 color: Colors.white,
@@ -245,13 +243,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fontWeight: FontWeight.w500),
                           ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 38,
                   ),
                   RichText(
                     text: TextSpan(
                       text: 'New to Onewallet? ',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0xffAAA8BD),
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -259,7 +257,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         TextSpan(
                             text: 'Create account',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Color(0xff5F00F8),
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -268,7 +266,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ..onTap = () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                      builder: (builder) => SignUpScreen()),
+                                      builder: (builder) => const SignUpScreen()),
                                 );
                               }),
                       ],
@@ -291,7 +289,7 @@ class _LoginScreenState extends State<LoginScreen> {
       context: context,
       builder: (context, controller, offset) {
         return Material(
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(32),
             topRight: Radius.circular(32),
           ),
@@ -307,18 +305,18 @@ class _LoginScreenState extends State<LoginScreen> {
               controller: controller,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 32,
                       ),
                       SvgPicture.asset('assets/Rectangle.svg'),
-                      SizedBox(
+                      const SizedBox(
                         height: 32,
                       ),
-                      Text(
+                      const Text(
                         'Forgot password',
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
@@ -326,8 +324,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontSize: 24,
                         ),
                       ),
-                      SizedBox(height: 6),
-                      Text(
+                      const SizedBox(height: 6),
+                      const Text(
                         'Enter email attached to your account',
                         style: TextStyle(
                             color: Color(0xff505780),
@@ -335,7 +333,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             fontFamily: 'Gotham',
                             fontSize: 14),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 40,
                       ),
                       Padding(
@@ -348,17 +346,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           decoration: InputDecoration(
                               filled: true,
                               labelText: 'Email Address',
-                              labelStyle: TextStyle(
+                              labelStyle: const TextStyle(
                                   color: Color(0xffAAA8BD), fontSize: 14),
                               floatingLabelStyle:
-                                  TextStyle(color: Color(0xff02003D)),
-                              fillColor: Color(0xffFAFBFF),
+                                  const TextStyle(color: Color(0xff02003D)),
+                              fillColor: const Color(0xffFAFBFF),
                               border: OutlineInputBorder(
                                   borderSide: BorderSide.none,
                                   borderRadius: BorderRadius.circular(16))),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 48,
                       ),
                       MaterialButton(
@@ -378,7 +376,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Navigator.of(context).pop();
                               ScaffoldMessenger.of(
                                       formKey.currentState!.context)
-                                  .showSnackBar(SnackBar(
+                                  .showSnackBar(const SnackBar(
                                 content: Text('Email sent'),
                               ));
                             } on FirebaseAuthException catch (e) {
@@ -390,13 +388,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                           }
                         },
-                        color: Color(0xff02003D),
+                        color: const Color(0xff02003D),
                         minWidth: double.infinity,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),
-                        padding: EdgeInsets.symmetric(vertical: 20),
-                        child: Text(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        child: const Text(
                           'Continue',
                           style: TextStyle(
                               color: Colors.white,

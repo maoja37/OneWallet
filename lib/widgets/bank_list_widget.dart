@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -47,7 +47,7 @@ class _BankListWidgetState extends State<BankListWidget> {
       fit: FlexFit.loose,
       child: ListView.separated(
         shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
           itemBuilder: ((context, index) {
             return GestureDetector(
                     onTap: () => _authenticate(context, index),
@@ -55,7 +55,7 @@ class _BankListWidgetState extends State<BankListWidget> {
                       position: index,
                       duration: const Duration(milliseconds: 100),
                       child: SlideAnimation(
-                        duration: Duration(milliseconds: 2500),
+                        duration: const Duration(milliseconds: 2500),
                         curve: Curves.fastLinearToSlowEaseIn,
                         horizontalOffset: -350,
                         verticalOffset: -10,
@@ -66,7 +66,7 @@ class _BankListWidgetState extends State<BankListWidget> {
                     ));
           }),
           separatorBuilder: (context, _) {
-            return SizedBox(height: 8);
+            return const SizedBox(height: 8);
           },
           itemCount: widget.cardList.length),
     );
@@ -108,20 +108,20 @@ class _BankListWidgetState extends State<BankListWidget> {
     try {
       authenticated = await _authentication.authenticate(
         localizedReason: 'Scan your fingerprint to authenticate',
-        options: AuthenticationOptions(stickyAuth: true),
+        options: const AuthenticationOptions(stickyAuth: true),
       );
     } on PlatformException catch (e) {
       print(e);
     }
     if (!mounted) return;
-
+   
     authenticated ? Navigator.of(context).push(
                           PageTransition(
                             child: CardDetails(
                               cardModel: widget.cardList[index],
                             ),
                             type: PageTransitionType.rightToLeft,
-                            duration: Duration(
+                            duration: const Duration(
                               milliseconds: 500,
                             ),
                           ),
