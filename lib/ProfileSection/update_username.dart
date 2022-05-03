@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:one_wallet/HomeSection/bottom_navigation.dart';
 
 class UpdateUsernameScreen extends StatefulWidget {
   UpdateUsernameScreen({Key? key}) : super(key: key);
@@ -96,14 +97,14 @@ class _UpdateUsernameScreenState extends State<UpdateUsernameScreen> {
                         });
                       
                         await user?.updateDisplayName(stuff).then(
-                          (value) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Name Updated')))).catchError((error) => ScaffoldMessenger.of(formKey.currentState!.context).showSnackBar(SnackBar(content: Text('Error Updating Name')))).whenComplete(() {});
+                          (value) => Navigator.of(context).push(MaterialPageRoute(builder: (context) => BottomNavigationScreen()))).catchError((error) => ScaffoldMessenger.of(formKey.currentState!.context).showSnackBar(SnackBar(content: Text('Error Updating Name')))).whenComplete(() {});
 
                         
                       setState(() {
                         loading = false;
                       });
             
-                       Navigator.of(context).pop();
+                       
                       }
                       
 

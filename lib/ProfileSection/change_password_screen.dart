@@ -28,7 +28,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             padding: EdgeInsets.symmetric(                            
               horizontal: 24,
             ),
-            child: Form(
+            child: /// A unique identifier for the form.
+            Form(
               key: formKey,                                                                                                                                                  
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -170,6 +171,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     );
   }
 
+  /// _changePassword() takes two strings, the current password and the new password, and then changes
+  /// the password of the current user to the new password
+  /// 
+  /// Args:
+  ///   currentPassword (String): The user's current password.
+  ///   newPassword (String): The new password.
   void _changePassword(
       String currentPassword, String newPassword) async {
     User? user = FirebaseAuth.instance.currentUser;

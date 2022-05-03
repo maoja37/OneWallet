@@ -10,6 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:one_wallet/HomeSection/bottom_navigation.dart';
 import 'package:one_wallet/OnboardingProcess/sign_up_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:one_wallet/ProfileSection/update_username.dart';
 
 import 'sign_up_screen.dart';
 
@@ -23,7 +24,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   // ignore: close_sinks
 
-  
   //this key is used to validate the forms
   final formKey = GlobalKey<FormState>();
 
@@ -170,16 +170,26 @@ class _LoginScreenState extends State<LoginScreen> {
                               .signInWithEmailAndPassword(
                                   email: _emailController.text,
                                   password: _passwordController.text);
-                          //this pushes the user to the main page and removes all screens in the stack before that
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BottomNavigationScreen(),
-                            ),
-                            (Route<dynamic> route) => false,
-                          );
+                          User? user = FirebaseAuth.instance.currentUser;
+                          if (user != null) {
+                            if (user.displayName != null) {
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      BottomNavigationScreen(),
+                                ),
+                                (Route<dynamic> route) => false,
+                              );
+                            } else {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => UpdateUsernameScreen(),
+                                ),
+                              );
+                            }
+                          }
                         } on FirebaseAuthException catch (e) {
-
                           //when the exception is caught the loading variable is set to false and the CircularProgressIndicator is hidden
                           setState(() {
                             loading = false;
@@ -234,7 +244,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500),
                           ),
-                  ), 
+                  ),
                   SizedBox(
                     height: 38,
                   ),
@@ -272,8 +282,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
-
 
   void _showSheet(BuildContext context) {
     showFlexibleBottomSheet(
