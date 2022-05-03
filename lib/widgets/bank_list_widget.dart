@@ -7,6 +7,7 @@ import 'package:one_wallet/database/database.dart';
 import 'package:one_wallet/widgets/bank_tile_widget.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class BankListWidget extends StatefulWidget {
   final List<CardData> cardList;
@@ -50,8 +51,18 @@ class _BankListWidgetState extends State<BankListWidget> {
           itemBuilder: ((context, index) {
             return GestureDetector(
                     onTap: () => _authenticate(context, index),
-                    child: BankTile(
-                      cardModel: widget.cardList[index],
+                    child: AnimationConfiguration.staggeredList(
+                      position: index,
+                      duration: const Duration(milliseconds: 100),
+                      child: SlideAnimation(
+                        duration: Duration(milliseconds: 2500),
+                        curve: Curves.fastLinearToSlowEaseIn,
+                        horizontalOffset: -350,
+                        verticalOffset: -10,
+                        child: BankTile(
+                          cardModel: widget.cardList[index],
+                        ),
+                      ),
                     ));
           }),
           separatorBuilder: (context, _) {

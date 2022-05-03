@@ -9,7 +9,8 @@ import 'package:one_wallet/widgets/bank_list_widget.dart';
 import 'package:one_wallet/widgets/no_card_available_widget.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-
+//import animated text kit package
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class MyCards extends StatefulWidget {
   const MyCards({Key? key}) : super(key: key);
@@ -65,27 +66,57 @@ class _MyCardsState extends State<MyCards> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        RichText(
-                          text: TextSpan(
-                              text: 'Hi ',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: sfpro,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: currentUser != null
-                                      ? currentUser!.displayName
-                                      : 'User',
-                                  style: GoogleFonts.inter(
+                        Row(
+                          children: [
+                            AnimatedTextKit(
+                              totalRepeatCount: 2,
+                              animatedTexts: [
+                              WavyAnimatedText('Hi ',
+                                  textStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: sfpro,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                  )),
+                            ]),
+                            AnimatedTextKit(
+                              totalRepeatCount: 2,
+                              pause: Duration(milliseconds: 2000),
+                              animatedTexts: [
+                              WavyAnimatedText(
+                                currentUser != null
+                                    ? currentUser!.displayName!
+                                    : 'User',
+                                    textStyle: GoogleFonts.inter(
                                       color: Colors.white,
                                       fontSize: 20,
                                       fontWeight: FontWeight.w700),
-                                )
-                              ]),
+                                      
+                              ),
+                            ])
+                          ],
                         ),
+                        // RichText(
+                        //   text: TextSpan(
+                        //       text: 'Hi ',
+                        //       style: TextStyle(
+                        //         color: Colors.white,
+                        //         fontFamily: sfpro,
+                        //         fontSize: 20,
+                        //         fontWeight: FontWeight.w500,
+                        //       ),
+                        //       children: [
+                        //         TextSpan(
+                        //           text: currentUser != null
+                        //               ? currentUser!.displayName!
+                        //               : 'User',
+                        //           style: GoogleFonts.inter(
+                        //               color: Colors.white,
+                        //               fontSize: 20,
+                        //               fontWeight: FontWeight.w700),
+                        //         )
+                        //       ]),
+                        // ),
                         SizedBox(height: 4),
                         Text(
                           'Welcome back',

@@ -29,7 +29,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     });
   }
 
-  /// Used to check if the floating action button is tapped or not.
   bool isTapped = false;
 
   @override
@@ -37,32 +36,23 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     return Scaffold(
       body: _screens[_selectedIndex],
       //create a floating action bar with floatingActionButtonLocation center docked and icon : Icons.add
-      floatingActionButton: InkWell(
-        highlightColor: Colors.transparent,
-        splashColor: Colors.transparent,
-        onHighlightChanged: (value) {
-          setState(() {
-            isTapped = value;
-          });
-        },
-        child: AnimatedContainer(
-          duration: Duration(milliseconds: 300),
-          height: isTapped ? 46 : 56,
-          width: isTapped ? 46 : 56,
-          child: FittedBox(
-            child: FloatingActionButton(
-              onPressed: () {
-                Navigator.of(context).push(PageTransition(
-                    child: AddCardScreen(),
-                    type: PageTransitionType.bottomToTop,
-                    duration: Duration(milliseconds: 600)));
-              },
-              child: Icon(
-                Iconsax.add,
-                color: Colors.white,
-              ),
-              backgroundColor: Color(0xff02003D),
-            ),
+      floatingActionButton: AnimatedContainer(
+        duration: Duration(milliseconds: 300),
+        height: 56,
+        width: 56,
+        child: FittedBox(
+          child: FloatingActionButton(
+            onPressed: () {
+              Navigator.of(context).push(PageTransition(
+                  child: AddCardScreen(),
+                  type: PageTransitionType.bottomToTop,
+                  duration: Duration(milliseconds: 600)));
+            },
+            child: Icon(
+              Iconsax.add,
+              color: Colors.white,
+            ),     
+            backgroundColor: Color(0xff02003D),
           ),
         ),
       ),
