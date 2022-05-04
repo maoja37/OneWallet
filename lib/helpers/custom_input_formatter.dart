@@ -19,11 +19,11 @@ class CustomInputFormatter extends TextInputFormatter {
         buffer.write(' '); // Replace this with anything you want to put after each 4 numbers
       }
     }
-
+                                                                                                        
     var string = buffer.toString();
     return newValue.copyWith(
         text: string,
         selection: TextSelection.collapsed(offset: string.length)
     );
-  }
+  }                         
 }

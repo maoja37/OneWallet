@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:one_wallet/ProfileSection/update_username.dart';
-
 import 'change_password_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -17,14 +17,33 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  final _prefs = SharedPreferences.getInstance();
   bool _toggled = false;
 
-  final  currentUser = FirebaseAuth.instance.currentUser;
+  final currentUser = FirebaseAuth.instance.currentUser;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    
+    getRealPreferences();
+    super.initState();
+  }
+
+  getRealPreferences() async {
+    SharedPreferences prefs = await _prefs;
+    setState(() {
+      _toggled = prefs.getBool('fingerprintAllowed') ?? false;
+    });
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0XffFAFAFA),
+      backgroundColor: Color(0xffFAFAFA),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -64,17 +83,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Image.asset('assets/profile_picture.png'),
                     ),
                     title: Text(
-                      currentUser != null && currentUser!.displayName != null ? currentUser!.displayName! :'Jenny wilson',
+                      currentUser != null && currentUser!.displayName != null
+                          ? currentUser!.displayName!
+                          : 'Jenny wilson',
                       style: const TextStyle(
                         fontFamily: 'SF-Pro',
                         fontSize: 16,
-                        fontWeight: FontWeight.w500,                                                                          
+                        fontWeight: FontWeight.w500,
                         color: Colors.white,
-                      ),                                                             
+                      ),
                     ),
-                    subtitle: Text(  currentUser != null? currentUser!.email!: 'johndoe@gmail.com',
+                    subtitle: Text(
+                        currentUser != null
+                            ? currentUser!.email!
+                            : 'johndoe@gmail.com',
                         style: const TextStyle(
-                          fontFamily: 'SF-Pro', 
+                          fontFamily: 'SF-Pro',
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
                           color: Color(0xffAAA8BD),
@@ -132,9 +156,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
                 value: _toggled,
-                onChanged: (value) {
+                onChanged: (value) async {
+                  SharedPreferences prefs = await _prefs;
                   setState(() {
                     _toggled = value;
+
+                    prefs.setBool('fingerprintAllowed', _toggled);
                   });
                 },
                 secondary: CircleAvatar(
@@ -160,10 +187,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: const CircleAvatar(
-                  radius: 24,
-                  backgroundColor: Colors.white,
-                  child: Icon(Iconsax.import, size: 16, color: Color(0xffAAA8BD),)
-                ),
+                    radius: 24,
+                    backgroundColor: Colors.white,
+                    child: Icon(
+                      Iconsax.import,
+                      size: 16,
+                      color: Color(0xffAAA8BD),
+                    )),
                 title: const Text(
                   'Import settings',
                   style: TextStyle(
@@ -187,10 +217,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: const CircleAvatar(
-                  radius: 24,
-                  backgroundColor: Colors.white,
-                  child: Icon(Iconsax.export, size: 16, color: Color(0xffAAA8BD),)
-                ),
+                    radius: 24,
+                    backgroundColor: Colors.white,
+                    child: Icon(
+                      Iconsax.export,
+                      size: 16,
+                      color: Color(0xffAAA8BD),
+                    )),
                 title: const Text(
                   'Export settings',
                   style: TextStyle(
@@ -213,15 +246,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const SizedBox(height: 15),
               GestureDetector(
                 onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const UpdateUsernameScreen(),
-                  )),
+                  builder: (context) => const UpdateUsernameScreen(),
+                )),
                 child: ListTile(
                   contentPadding: EdgeInsets.zero,
                   leading: const CircleAvatar(
-                    radius: 24,
-                    backgroundColor: Colors.white,
-                    child: Icon(Iconsax.info_circle, size: 16, color: Color(0xffAAA8BD),)
-                  ),
+                      radius: 24,
+                      backgroundColor: Colors.white,
+                      child: Icon(
+                        Iconsax.info_circle,
+                        size: 16,
+                        color: Color(0xffAAA8BD),
+                      )),
                   title: const Text(
                     'Help',
                     style: TextStyle(

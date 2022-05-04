@@ -319,14 +319,14 @@ class _EditCardScreenState extends State<EditCardScreen> {
               height: 16,
             ),
             const Text(
-              'Welldone!',
+              'Welldone!',                
               style: TextStyle(
                 fontFamily: 'SF-Pro',
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 color: Color(0xff0B0B0B),
               ),
-            ),
+            ),                      
             const SizedBox(
               height: 4,
             ),

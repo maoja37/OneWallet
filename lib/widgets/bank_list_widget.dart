@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:one_wallet/CardDetailsSection/card_detail.dart';
@@ -8,6 +6,7 @@ import 'package:one_wallet/widgets/bank_tile_widget.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BankListWidget extends StatefulWidget {
   final List<CardData> cardList;
@@ -18,52 +17,65 @@ class BankListWidget extends StatefulWidget {
 }
 
 class _BankListWidgetState extends State<BankListWidget> {
-
   final LocalAuthentication _authentication = LocalAuthentication();
 
   bool? _canCheckBiometrics;
-  List<BiometricType>? _availableBiometrics; 
+  List<BiometricType>? _availableBiometrics;
 
-  
-
-
+  bool fingerprintActivated = false;
 
   @override
   void initState() {
     // TODO: implement initState
     _checkBiometrics();
     _getAvailableBiometrics();
+    getRealPreferences();
     super.initState();
   }
 
-
+  getRealPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      fingerprintActivated = prefs.getBool('fingerprintAllowed') ?? false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-                                                                                                                             
-
 //i surrounded this listview by flexible instead of sizedbox for some weird reason the compiler gave me, so i had to use the flexbit.loose propperty
     return Flexible(
       fit: FlexFit.loose,
       child: ListView.separated(
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
           itemBuilder: ((context, index) {
             return GestureDetector(
-                    onTap: () => _authenticate(context, index),
-                    child: AnimationConfiguration.staggeredList(
-                      position: index,
-                      duration: const Duration(milliseconds: 100),
-                      child: SlideAnimation(
-                        duration: const Duration(milliseconds: 2500),
-                        curve: Curves.fastLinearToSlowEaseIn,
-                        horizontalOffset: -350,
-                        verticalOffset: -10,
-                        child: BankTile(
-                          cardModel: widget.cardList[index],
+                onTap: () => fingerprintActivated
+                    ? _authenticate(context, index)
+                    : Navigator.of(context).push(
+                        PageTransition(
+                          child: CardDetails(
+                            cardModel: widget.cardList[index],
+                          ),
+                          type: PageTransitionType.rightToLeft,
+                          duration: const Duration(
+                            milliseconds: 500,
+                          ),
                         ),
                       ),
-                    ));
+                child: AnimationConfiguration.staggeredList(
+                  position: index,
+                  duration: const Duration(milliseconds: 100),
+                  child: SlideAnimation(
+                    duration: const Duration(milliseconds: 2500),
+                    curve: Curves.fastLinearToSlowEaseIn,
+                    horizontalOffset: -350,
+                    verticalOffset: -10,
+                    child: BankTile(
+                      cardModel: widget.cardList[index],
+                    ),
+                  ),
+                ));
           }),
           separatorBuilder: (context, _) {
             return const SizedBox(height: 8);
@@ -72,8 +84,7 @@ class _BankListWidgetState extends State<BankListWidget> {
     );
   }
 
-
-    Future<void> _checkBiometrics() async {
+  Future<void> _checkBiometrics() async {
     bool canCheckBiometrics = false;
     try {
       canCheckBiometrics = await _authentication.canCheckBiometrics;
@@ -101,7 +112,6 @@ class _BankListWidgetState extends State<BankListWidget> {
     });
   }
 
-
 //this method is used to check if authenticate the user using fingerprint before showing card details
   Future<void> _authenticate(BuildContext context, int index) async {
     bool authenticated = false;
@@ -114,21 +124,21 @@ class _BankListWidgetState extends State<BankListWidget> {
       print(e);
     }
     if (!mounted) return;
-   
-    authenticated ? Navigator.of(context).push(
-                          PageTransition(
-                            child: CardDetails(
-                              cardModel: widget.cardList[index],
-                            ),
-                            type: PageTransitionType.rightToLeft,
-                            duration: const Duration(
-                              milliseconds: 500,
-                            ),
-                          ),
-                        ): null;
 
-    setState(() {
-      
-    });
+    authenticated
+        ? Navigator.of(context).push(
+            PageTransition(
+              child: CardDetails(
+                cardModel: widget.cardList[index],
+              ),
+              type: PageTransitionType.rightToLeft,
+              duration: const Duration(
+                milliseconds: 500,
+              ),
+            ),
+          )
+        : null;
+
+    setState(() {});
   }
 }
