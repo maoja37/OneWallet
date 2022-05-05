@@ -11,6 +11,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 //import animated text kit package
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:dough/dough.dart';
 
 class MyCards extends StatefulWidget {
   const MyCards({Key? key}) : super(key: key);

@@ -100,9 +100,12 @@ class BankTile extends StatelessWidget {
               color: Color(0xffB5B3C5)),
         ),
 
-        trailing: SvgPicture.asset('assets/mastercard.svg'),
+        trailing: SvgPicture.asset('assets/${cardModel.cardType}card.svg'),
       ),
-    );
+    );      
   }
 }
-    
+
+
+
+          

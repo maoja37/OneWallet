@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:one_wallet/models/card_model.dart';
@@ -18,7 +16,6 @@ class AddCardScreen extends StatefulWidget {
 }
 
 class _AddCardScreenState extends State<AddCardScreen> {
-
   //this valriable is used to validate the forms in the screen
   final _formKey = GlobalKey<FormState>();
 
@@ -35,11 +32,21 @@ class _AddCardScreenState extends State<AddCardScreen> {
   String expiryDate = '';
   String cardHolderName = '';
   String cvvCode = '';
+  String cardType = 'master';
 
   //use this to keep track of when the form is submitted for autovalidate for the individual forms
   bool _submitted = false;
 
   late AppDatabase database;
+
+  static const menuItems = <String>['master', 'verve', 'visa'];
+
+  final List<DropdownMenuItem<String>> _dropdownMenuItems = menuItems
+      .map((value) => DropdownMenuItem<String>(
+            value: value,
+            child: Text(value + 'card'),
+          ))
+      .toList();
 
   @override
   void dispose() {
@@ -206,7 +213,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                 const SizedBox(
                   height: 16,
                 ),
-                TextFormField(
+                TextFormField(        
                   keyboardType: TextInputType.text,
                   controller: expiryDateController,
                   autovalidateMode: _submitted
@@ -237,6 +244,28 @@ class _AddCardScreenState extends State<AddCardScreen> {
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(16))),
                 ),
+                const SizedBox(height: 16),
+                ListTile(
+                  leading: const Text(
+                    'Choose Card Type',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 13,
+                      color: Color(0xff0B0B0B),
+                    ),
+                  ),
+                  trailing: DropdownButton(
+                    value: cardType,
+                    items: _dropdownMenuItems,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        if (newValue != null) {
+                          cardType = newValue;
+                        }
+                      });
+                    },
+                  ),
+                ),
                 const SizedBox(
                   height: 36,
                 ),
@@ -258,7 +287,9 @@ class _AddCardScreenState extends State<AddCardScreen> {
                           cardNumber: dr.Value(cardNumber),
                           expiryDate: dr.Value(expiryDate),
                           cardHolderName: dr.Value(cardHolderName),
-                          cvvCode: dr.Value(cvvCode)));
+                          cvvCode: dr.Value(cvvCode),
+                          cardType: dr.Value(cardType),
+                          ));
                       await _showCompletedDialog(context);
 
                       Navigator.of(context).pop();
