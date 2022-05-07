@@ -16,7 +16,7 @@ class BankTile extends StatelessWidget {
   bool _isDeleted = false;
 
 //this is the datbase from drift also called moor
-  late AppDatabase database;
+  late AppDatabase database;     
   @override
   Widget build(BuildContext context) {
     //this initializes thet database using provider
@@ -31,7 +31,7 @@ class BankTile extends StatelessWidget {
             SlidableAction(
               onPressed: (context) async {
                 await showDialog(
-                    context: context,
+                    context: context,      
                     builder: (context) => AlertDialog(
                             title: const Text('Delete card'),
                             content: const Text(
