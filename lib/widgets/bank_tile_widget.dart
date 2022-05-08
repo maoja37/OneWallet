@@ -16,7 +16,7 @@ class BankTile extends StatelessWidget {
   bool _isDeleted = false;
 
 //this is the datbase from drift also called moor
-  late AppDatabase database;     
+  late AppDatabase database;
   @override
   Widget build(BuildContext context) {
     //this initializes thet database using provider
@@ -29,9 +29,9 @@ class BankTile extends StatelessWidget {
           motion: const ScrollMotion(),
           children: [
             SlidableAction(
-              onPressed: (context) async {
+              onPressed: (context) async {   
                 await showDialog(
-                    context: context,      
+                    context: context,
                     builder: (context) => AlertDialog(
                             title: const Text('Delete card'),
                             content: const Text(
@@ -59,7 +59,6 @@ class BankTile extends StatelessWidget {
                 //if the user clicks yes on the dialog the card will delete if not, it wont delete
                 _isDeleted ? database.deleteCard(cardModel) : null;
               },
-
               backgroundColor: Colors.red,
               icon: Iconsax.trash,
             )
@@ -102,10 +101,6 @@ class BankTile extends StatelessWidget {
 
         trailing: SvgPicture.asset('assets/${cardModel.cardType}card.svg'),
       ),
-    );      
+    );
   }
 }
-
-
-
-          
