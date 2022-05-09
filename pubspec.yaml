@@ -54,6 +54,7 @@ dependencies:
   animated_text_kit: ^4.2.1
   flutter_staggered_animations: ^1.0.0
   shared_preferences: ^2.0.13
+  csv: ^5.0.1
   
 
   
