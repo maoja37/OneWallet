@@ -27,7 +27,7 @@ apply plugin: 'com.google.gms.google-services'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 31
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -47,7 +47,7 @@ android {
         applicationId "com.example.one_wallet"
         //you changed 21 from flutter.minSdkVersion and 29 from flutter.targetSdkVersion
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

@@ -55,6 +55,7 @@ dependencies:
   flutter_staggered_animations: ^1.0.0
   shared_preferences: ^2.0.13
   csv: ^5.0.1
+  permission_handler: ^9.2.0
   
 
   

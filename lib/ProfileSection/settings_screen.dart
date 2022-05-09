@@ -6,8 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:one_wallet/ProfileSection/update_username.dart';
+import 'package:one_wallet/database/database.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 import 'change_password_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io';
+//import csv package
+import 'package:csv/csv.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -25,21 +32,85 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    
+
     getRealPreferences();
     super.initState();
   }
 
   getRealPreferences() async {
     SharedPreferences prefs = await _prefs;
+
     setState(() {
       _toggled = prefs.getBool('fingerprintAllowed') ?? false;
     });
   }
 
+  Future<void> _generateCSV(BuildContext context) async {
+    AppDatabase database = Provider.of<AppDatabase>(context, listen: false);
+    List<CardData> cards = await database.allCards;
+    List<List<String>> csvData = [
+      [
+        'id',
+        'Bank Name',
+        'Card Number               ',
+        'Expiry Date',
+        'Card Holder Name',
+        'CVV code',
+        'Card Type'
+      ],
+      ...cards.map((item) => [
+            item.id.toString(),
+            item.bankName,
+            item.cardNumber,
+            item.expiryDate,
+            item.cardHolderName,
+            item.cvvCode,
+            item.cardType ?? 'Unknown'
+          ]),
+    ];
 
+    String csv = const ListToCsvConverter().convert(csvData);
 
-                      
+    await Permission.manageExternalStorage.request();
+
+    //  final String dir = (await getExternalStorageDirectory())!.path;
+    //  print(dir);
+    //   final String path = '$dir/cards.csv';
+
+    Directory directory = (await getExternalStorageDirectory())!;
+    String fileName = 'cards.csv';
+    String newPath = '';
+    print('directory: $directory');
+
+    List<String> paths = directory.path.split('/');
+
+    for (var i = 1; i < paths.length; i++) {
+      String currentFolder = paths[i];
+      if (currentFolder != 'Android') {
+        newPath += '/' + currentFolder;
+      } else {
+        break;
+      }
+     
+    }
+
+     newPath = newPath + '/OneWallet';
+      directory = Directory(newPath);
+    if (!await directory.exists()) {
+      await directory.create(recursive: true);
+    }
+    if (await directory.exists()) {
+      final File file = File(directory.path + '/$fileName');
+      await file.writeAsString(csv).then((value) => ScaffoldMessenger.of(context).showSnackBar( const SnackBar(content: Text('Data exported successfully'))));
+    }
+    // try {
+    //   final File file = File(path);
+    //    await file.writeAsString(csv).then((value) => ScaffoldMessenger.of(context).showSnackBar( const SnackBar(content: Text('Data exported successfully'))));
+    // } catch (e){
+    //     print(e);
+    // }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -214,33 +285,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
               const SizedBox(height: 15),
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: const CircleAvatar(
-                    radius: 24,
-                    backgroundColor: Colors.white,
-                    child: Icon(
-                      Iconsax.export,
-                      size: 16,
-                      color: Color(0xffAAA8BD),
-                    )),
-                title: const Text(
-                  'Export settings',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 13,
-                    color: Color(0xff0B0B0B),
+              GestureDetector(
+                onTap: () => _generateCSV(context),
+                child: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: const CircleAvatar(
+                      radius: 24,
+                      backgroundColor: Colors.white,
+                      child: Icon(
+                        Iconsax.export,
+                        size: 16,
+                        color: Color(0xffAAA8BD),
+                      )),
+                  title: const Text(
+                    'Export settings',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 13,
+                      color: Color(0xff0B0B0B),
+                    ),
                   ),
-                ),
-                trailing: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
+                  trailing: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Icon(CupertinoIcons.right_chevron,
+                        color: Color(0xffAAA8BD)),
                   ),
-                  child: const Icon(CupertinoIcons.right_chevron,
-                      color: Color(0xffAAA8BD)),
                 ),
               ),
               const SizedBox(height: 15),

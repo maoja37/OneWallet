@@ -27,9 +27,9 @@ class BankTile extends StatelessWidget {
         endActionPane: ActionPane(
           extentRatio: 0.25,
           motion: const ScrollMotion(),
-          children: [
+          children: [          
             SlidableAction(
-              onPressed: (context) async {   
+              onPressed: (context) async {                                                      
                 await showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
