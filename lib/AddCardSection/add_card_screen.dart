@@ -159,6 +159,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   autovalidateMode: _submitted
                       ? AutovalidateMode.onUserInteraction
                       : AutovalidateMode.disabled,
+                      maxLength: 16,
                   validator: (text) {
                     if (text!.isEmpty) {
                       return 'Please enter card number';
@@ -198,6 +199,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     }
                     return null;
                   },
+                  maxLength: 3,
                   decoration: InputDecoration(
                       filled: true,
                       hintText: 'CVV',
@@ -219,6 +221,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   autovalidateMode: _submitted
                       ? AutovalidateMode.onUserInteraction
                       : AutovalidateMode.disabled,
+                      maxLength: 5,
                   validator: (text) {
                     if (text!.isEmpty) {
                       return 'Please enter expiry date';
