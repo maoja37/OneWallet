@@ -213,7 +213,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                           borderRadius: BorderRadius.circular(16))),
                 ),
                 const SizedBox(
-                  height: 16,
+                  height: 16,    
                 ),
                 TextFormField(        
                   keyboardType: TextInputType.text,
