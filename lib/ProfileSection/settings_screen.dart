@@ -73,9 +73,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     await Permission.manageExternalStorage.request();
 
-    //  final String dir = (await getExternalStorageDirectory())!.path;
-    //  print(dir);
-    //   final String path = '$dir/cards.csv';
+   
 
     Directory directory = (await getExternalStorageDirectory())!;
     String fileName = 'cards.csv';
@@ -93,8 +91,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       }
      
     }
-
+                                              
      newPath = newPath + '/OneWallet';
+     print('New Path : $newPath');
       directory = Directory(newPath);
     if (!await directory.exists()) {
       await directory.create(recursive: true);
@@ -103,13 +102,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       final File file = File(directory.path + '/$fileName');
       await file.writeAsString(csv).then((value) => ScaffoldMessenger.of(context).showSnackBar( const SnackBar(content: Text('Data exported successfully'))));
     }
-    // try {
-    //   final File file = File(path);
-    //    await file.writeAsString(csv).then((value) => ScaffoldMessenger.of(context).showSnackBar( const SnackBar(content: Text('Data exported successfully'))));
-    // } catch (e){
-    //     print(e);
-    // }
-  }
+                                             
+  }                                                                                  
 
   @override
   Widget build(BuildContext context) {
