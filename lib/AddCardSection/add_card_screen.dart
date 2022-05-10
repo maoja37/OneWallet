@@ -214,8 +214,8 @@ class _AddCardScreenState extends State<AddCardScreen> {
                 ),
                 const SizedBox(
                   height: 16,                                                                                                
-                ),                
-                TextFormField(        
+                ),      
+                TextFormField(              
                   keyboardType: TextInputType.text,
                   controller: expiryDateController,
                   autovalidateMode: _submitted
